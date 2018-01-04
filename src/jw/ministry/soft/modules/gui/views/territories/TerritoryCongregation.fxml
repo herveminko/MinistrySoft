@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <VBox prefHeight="600.0" prefWidth="800.0" spacing="5.0">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+         <children>
+            <HBox prefHeight="25.0" spacing="40.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <ImageView fitHeight="22.0" fitWidth="37.0">
+                           <image>
+                              <Image url="@../../../../../../../../resources/images/search.png" />
+                           </image>
+                        </ImageView>
+                        <TextField alignment="CENTER" prefHeight="25.0" prefWidth="498.0" promptText="Rechercher un lieux">
+                           <font>
+                              <Font name="Courier New Italic" size="12.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox spacing="20.0">
+               <children>
+                  <ImageView fitHeight="391.0" fitWidth="498.0" onZoom="#handleOnZoom" onZoomFinished="#handleZoomFinished" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="40.0" top="20.0" />
+                     </VBox.margin>
+                     <image>
+                        <Image url="@../../../../../../../../resources/images/paderborn.png" />
+                     </image>
+                  </ImageView>
+                  <VBox maxHeight="400.0" maxWidth="200.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="50.0" text="Resultats" textFill="DODGERBLUE" translateX="65.0">
+                           <font>
+                              <Font name="System Bold Italic" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextArea maxHeight="180.0" maxWidth="200.0" minHeight="180.0" prefHeight="180.0" prefWidth="200.0" promptText="&lt;&gt;&#10;&lt;&gt;&#10;&lt;&gt;&#10;&lt;&gt;&#10;&lt;&gt;&#10;" style="-fx-background-color: white;" />
+                        <Button mnemonicParsing="false" text="Enregister" textFill="DARKGRAY" translateX="120.0" translateY="62.0">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <tooltip>
+                              <Tooltip text="Sauvegarger les résultats" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="42.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="33.0" style="-fx-background-color: #1E90FF;">
+                     <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../resources/images/zoom_in.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Zoom in" />
+                     </tooltip>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="30.0" style="-fx-background-color: #1E90FF;">
+                     <graphic>
+                        <ImageView fitHeight="14.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../resources/images/zoom_out.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Zoom out" />
+                     </tooltip>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

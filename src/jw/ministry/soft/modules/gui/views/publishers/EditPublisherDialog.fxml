@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="559.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jw.ministry.soft.modules.gui.views.publishers.EditPublisherController">
+   <children>
+    <TitledPane animated="false" layoutY="140.0" prefHeight="559.0" prefWidth="742.0" text="Details du proclcamateur" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="540.0" prefWidth="740.0">
+               <children>
+                  <Button layoutX="327.0" layoutY="494.0" mnemonicParsing="false" onAction="#modifyPublisher" prefHeight="25.0" prefWidth="76.0" text="Modifier" />
+                  <Button layoutX="410.0" layoutY="494.0" mnemonicParsing="false" onAction="#close" text="Annuler" />
+                  <GridPane layoutX="391.0" layoutY="14.0" prefHeight="215.0" prefWidth="278.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="68.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="211.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Privilèges:" />
+                        <ListView fx:id="privilegesListView" editable="true" prefHeight="235.0" prefWidth="215.0" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Label layoutX="25.0" layoutY="18.0" text="Nom:" />
+                  <TextField fx:id="lastNameTextField" layoutX="189.0" layoutY="14.0" />
+                  <Label layoutX="24.0" layoutY="52.0" text="Prénom:" />
+                  <TextField fx:id="firstNameTextField" layoutX="189.0" layoutY="48.0" />
+                  <Label layoutX="24.0" layoutY="84.0" text="Sexe:" />
+                  <ComboBox fx:id="sexComboBox" layoutX="190.0" layoutY="83.0" prefHeight="25.0" prefWidth="147.0" />
+                  <Label layoutX="24.0" layoutY="126.0" text="Date de naissance:" />
+                  <DatePicker fx:id="datePicker" layoutX="189.0" layoutY="122.0" prefHeight="25.0" prefWidth="149.0" />
+                  <Label layoutX="24.0" layoutY="160.0" text="Status:" />
+                  <ComboBox fx:id="statusComboBox" layoutX="190.0" layoutY="159.0" prefHeight="25.0" prefWidth="148.0" />
+                  <Label layoutX="24.0" layoutY="198.0" text="Téléphone:" />
+                  <TextField fx:id="phoneTextField" layoutX="190.0" layoutY="194.0" />
+                  <Label layoutX="25.0" layoutY="235.0" text="Portable:" />
+                  <TextField fx:id="mobileTextField" layoutX="190.0" layoutY="231.0" />
+                  <Label layoutX="26.0" layoutY="271.0" text="Email:" />
+                  <TextField fx:id="emailTextField" layoutX="190.0" layoutY="267.0" />
+                  <ComboBox fx:id="groupComboBox" layoutX="457.0" layoutY="267.0" prefWidth="150.0" />
+                  <Label layoutX="26.0" layoutY="306.0" text="Skype:" />
+                  <TextField fx:id="skypeTextField" layoutX="190.0" layoutY="302.0" />
+                  <Label layoutX="27.0" layoutY="344.0" text="Rue:" />
+                  <TextField fx:id="streetTextField" layoutX="191.0" layoutY="340.0" />
+                  <Label layoutX="28.0" layoutY="385.0" text="Code postal:" />
+                  <TextField fx:id="postalCodeTextField" layoutX="192.0" layoutY="381.0" />
+                  <Label layoutX="370.0" layoutY="344.0" text="N° maison:" />
+                  <TextField fx:id="housenumberTextField" layoutX="458.0" layoutY="340.0" prefHeight="25.0" prefWidth="63.0" />
+                  <Label layoutX="367.0" layoutY="385.0" text="Appartement:" />
+                  <TextField fx:id="appartmentTextField" layoutX="458.0" layoutY="381.0" prefHeight="25.0" prefWidth="61.0" />
+                  <Label layoutX="28.0" layoutY="425.0" text="Ville:" />
+                  <TextField fx:id="cityTextField" layoutX="192.0" layoutY="421.0" />
+                  <ComboBox fx:id="countryComboBox" layoutX="457.0" layoutY="421.0" prefHeight="25.0" prefWidth="149.0" />
+                  <Label layoutX="368.0" layoutY="425.0" text="Pays:" />
+                  <Label layoutX="370.0" layoutY="271.0" text="Groupe:" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </AnchorPane>
+      </content>
+    </TitledPane>
+   </children>
+</AnchorPane>

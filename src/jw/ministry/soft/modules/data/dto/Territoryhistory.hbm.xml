@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 8 juin 2015 16:06:02 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Territoryhistory" table="TERRITORYHISTORY" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="historyId" type="java.lang.Integer">
+            <column name="HISTORY_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="publisher" class="jw.ministry.soft.modules.data.dto.Publisher" fetch="select">
+            <column name="PUBLISHER_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="territory" class="jw.ministry.soft.modules.data.dto.Territory" fetch="select">
+            <column name="TERRITORY_ID" not-null="true" />
+        </many-to-one>
+        <property name="actionDate" type="date">
+            <column name="ACTION_DATE" length="10" not-null="true" />
+        </property>
+        <property name="actionDescrption" type="string">
+            <column name="ACTION_DESCRPTION" length="64" />
+        </property>
+    </class>
+</hibernate-mapping>

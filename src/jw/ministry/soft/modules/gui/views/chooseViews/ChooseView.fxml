@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="317.0" prefWidth="400.0" style="-fx-background-color: #F5F5F5;">
+         <children>
+            <Label layoutX="96.0" layoutY="68.0" text="Choisissez une tâche">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Label>
+            <Group layoutX="45.0" layoutY="101.0">
+               <children>
+                  <VBox layoutX="20.0" layoutY="-6.0" prefHeight="142.0" prefWidth="311.0" spacing="20.0">
+                     <children>
+                        <CheckBox fx:id="congregTD" mnemonicParsing="false" onAction="#handleCongregation" onMouseDragEntered="#handleMouseOnCongregation" style="-fx-border-insets: -5; -fx-border-radius: 10; -fx-border-color: #ADD8E6; -fx-border-width: 2; -fx-border-style: dotted;" text="Gestion de la congrégation" />
+                        <CheckBox fx:id="teritoryID" mnemonicParsing="false" onAction="#handleTerritory" onMouseDragEntered="#handleMouseOnTerritory" style="-fx-border-insets: -5; -fx-border-radius: 10; -fx-border-color: #ADD8E6; -fx-border-width: 2; -fx-border-style: dotted;" text="Gestion des térritoires" />
+                        <CheckBox fx:id="emtID" mnemonicParsing="false" onAction="#handleEMT" onMouseDragEntered="#handleMouseOnEMT" prefHeight="17.0" prefWidth="268.0" style="-fx-border-insets: -5; -fx-border-radius: 10; -fx-border-color: #ADD8E6; -fx-border-width: 2; -fx-border-style: dotted;" text="Gestion del'école du ministère théocratique" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </Group>
+            <Button fx:id="goID" layoutX="340.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleActions" onMouseDragEntered="#handleMouseOnGo" style="-fx-base: #b6e7c9;" text="Go">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+         </children></Pane>
+   </children>
+</AnchorPane>

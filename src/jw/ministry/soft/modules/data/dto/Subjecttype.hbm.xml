@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 6 mars 2015 22:01:43 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Subjecttype" table="SUBJECTTYPE" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="subjectTypeId" type="java.lang.Integer">
+            <column name="SUBJECT_TYPE_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="subjectName" type="string">
+            <column name="SUBJECT_NAME" length="64" not-null="true" unique="true" />
+        </property>
+        <property name="subjectFixedDuration" type="time">
+            <column name="SUBJECT_FIXED_DURATION" length="8" not-null="true" />
+        </property>
+        <set name="subjects" table="SUBJECT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SUBJECT_TYPE" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Subject" />
+        </set>
+    </class>
+</hibernate-mapping>

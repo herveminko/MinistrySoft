@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jw.ministry.soft.modules.gui.views.RootLayoutController">
+<top><MenuBar BorderPane.alignment="CENTER">
+  <menus>
+    <Menu mnemonicParsing="false" text="Fichier">
+      <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openCongregationManagementDialog" text="Gestion de congregations" />
+                  <MenuItem mnemonicParsing="false" onAction="#openPublishersManagementDialog" text="Gestion de proclamateurs" /><MenuItem mnemonicParsing="false" onAction="#handleExit" text="Fermer" />
+      </items>
+    </Menu>
+            <Menu mnemonicParsing="false" text="Extras">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Organistation de la congrégation" />
+                  <MenuItem mnemonicParsing="false" text="Cahier d'adresses" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Outils">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Calculatrice" />
+                  <MenuItem mnemonicParsing="false" text="Agenda" />
+              </items>
+            </Menu>
+    <Menu mnemonicParsing="false" onAction="#handleAbout" text="Aide">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="À propos" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>
+</top>
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Tab 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="343.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../resources/images/jworg.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center></BorderPane>

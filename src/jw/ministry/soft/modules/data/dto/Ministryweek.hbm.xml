@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 6 mars 2015 22:01:43 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Ministryweek" table="MINISTRYWEEK" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="weekId" type="java.lang.Integer">
+            <column name="WEEK_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="weekStart" type="date">
+            <column name="WEEK_START" length="10" not-null="true" />
+        </property>
+        <property name="weekEnd" type="date">
+            <column name="WEEK_END" length="10" not-null="true" />
+        </property>
+        <set name="subjects" table="SUBJECT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="WEEK" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Subject" />
+        </set>
+    </class>
+</hibernate-mapping>

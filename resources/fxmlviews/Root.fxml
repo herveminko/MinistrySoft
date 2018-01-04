@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import jfxtras.labs.scene.control.radialmenu.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.RadioButton?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="632.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxmlviews.RootController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="%menu_minsoft_tools">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#exportAllCongregationPublishers" text="%menu_item_export_publishers" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportAllTerritories" text="%menu_item_export_territories" />
+                  <MenuItem mnemonicParsing="false" onAction="#exportAllTerritoriesAssignments" text="%menu_item_export_territories_assignments" />
+                  <MenuItem mnemonicParsing="false" onAction="#importTerritoryAssistantMaps" text="%menu_item_import_territories_maps" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TabPane prefHeight="457.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+            <Tab text="Reglages">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Accordion prefHeight="578.0" prefWidth="834.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <panes>
+                            <TitledPane animated="false" text="Informations sur les codes de territoires">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TextArea editable="false" prefHeight="502.0" prefWidth="832.0" text="001 - 030 Osnabrück Recherche&#10;031 - 050 Osnabrück Étudiants&#10;051 - 080 Bielefeld Recherche&#10;081 - 100 Bielefeld Étudiants&#10;101 - 140 Autour de Osnabrück / Bielefeld / Münster Recherche (Au dessus de l'A 30)&#10;141 - 200 Autour de Osnabrück / Bielefeld / Münster Recherche (Au dessous de l'A 30) &#10;201 - 250 Münster Recherche&#10;251 - 280 Münster Étudiants&#10;281 - 290 Paderborn Recherche - ALT&#10;291 - 295 Paderborn Étudiants&#10;296 - 300 Gütersloh Recherche&#10;301 - 310 Osnabrück Asyl&#10;311 - 320 Bielefeld Asyl&#10;321 - 330 Münster Asyl&#10;331 - 340 Paderborn Asyl&#10;341 - 345 Gütersloh Asyl&#10;346 - 350 Detmold Asyl&#10;401 - 430 Paderborn Recherche - NEU&#10;&#10;&#10;Notes:&#10;Les territoires suivants ne possèdent plus de cartes:&#10;188, 176" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                            </TitledPane>
+                            <TitledPane text="Base de données">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                            </TitledPane>
+                            <TitledPane animated="false" expanded="false" text="Langue">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                              	<font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                            </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+          <Tab text="%congregation_tab_name">
+          	<content>
+                <fx:include fx:id="congregationsTabPage" source="modules/congregations/CongregationsManagement.fxml" />
+            </content>
+          </Tab>
+          <Tab text="%publishers_tab_name">
+              <content>
+                <fx:include fx:id="publishersTabPage" source="modules/publishers/PublishersManagement.fxml" />
+              </content>
+          </Tab>
+          <Tab text="%territories_tab_name">
+              <content>
+                <fx:include fx:id="territoriesTabPage" source="modules/territories/TerritoriesManagement.fxml" />
+              </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>

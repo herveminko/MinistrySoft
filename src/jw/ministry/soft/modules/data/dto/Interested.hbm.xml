@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Interested" table="INTERESTED" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="interestedId" type="java.lang.Integer">
+            <column name="INTERESTED_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="contact" class="jw.ministry.soft.modules.data.dto.Contact" fetch="select">
+            <column name="CONTACT_ID" unique="true" />
+        </many-to-one>
+        <property name="firstName" type="string">
+            <column name="FIRST_NAME" length="64" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LAST_NAME" length="64" not-null="true" />
+        </property>
+        <property name="lastVisit" type="date">
+            <column name="LAST_VISIT" length="10" />
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="512" />
+        </property>
+        <property name="french" type="java.lang.Boolean">
+            <column name="FRENCH" />
+        </property>
+    </class>
+</hibernate-mapping>

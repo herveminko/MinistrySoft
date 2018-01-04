@@ -1,0 +1,12 @@
+.archivedTerritoryRowOld { -fx-background-color: palegreen; }
+.archivedTerritoryRow {
+	-fx-background-color: #f46c59;
+	-fx-strikethrough: true;
+    -fx-text-fill: red;
+ }
+.unassignedTerritoryRow { -fx-background-color: palegreen; }
+.assignedTerritoryRow {}
+
+.table-row-cell:selected {
+   -fx-background-color: steelblue;
+}

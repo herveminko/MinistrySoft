@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Publisher" table="PUBLISHER" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="publisherId" type="java.lang.Integer">
+            <column name="PUBLISHER_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="congregation" class="jw.ministry.soft.modules.data.dto.Congregation" fetch="select">
+            <column name="CONGREGATION" unique="true" />
+        </many-to-one>
+        <many-to-one name="contact" class="jw.ministry.soft.modules.data.dto.Contact" fetch="select">
+            <column name="CONTACT_ID" unique="true" />
+        </many-to-one>
+        <many-to-one name="publishinggroup" class="jw.ministry.soft.modules.data.dto.Publishinggroup" fetch="select">
+            <column name="GROUP_ID" unique="true" />
+        </many-to-one>
+        <many-to-one name="sexe" class="jw.ministry.soft.modules.data.dto.Sexe" fetch="select">
+            <column name="SEXE_ID" unique="true" />
+        </many-to-one>
+        <many-to-one name="status" class="jw.ministry.soft.modules.data.dto.Status" fetch="select">
+            <column name="STATUS_ID" unique="true" />
+        </many-to-one>
+        <property name="firstName" type="string">
+            <column name="FIRST_NAME" length="64" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="LAST_NAME" length="64" not-null="true" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="BIRTHDAY" length="10" />
+        </property>
+        <set name="publisherPrivileges" table="PUBLISHER_PRIVILEGE" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PUBLISHER_ID" not-null="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.PublisherPrivilege" />
+        </set>
+        <set name="territoriesassignmentses" table="TERRITORIESASSIGNMENTS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PUBLISHER_ID" not-null="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Territoriesassignments" />
+        </set>
+        <set name="territoryhistories" table="TERRITORYHISTORY" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PUBLISHER_ID" not-null="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Territoryhistory" />
+        </set>
+        <set name="subjects" table="SUBJECT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PUBLISHER_ID" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Subject" />
+        </set>
+    </class>
+</hibernate-mapping>

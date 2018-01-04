@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25 juin 2015 01:39:37 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Territory" table="TERRITORY" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="territoryId" type="java.lang.Integer">
+            <column name="TERRITORY_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="bounds" type="string">
+            <column name="BOUNDS" length="4096" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="64" not-null="true" />
+        </property>
+        <property name="code" type="string">
+            <column name="CODE" length="64" not-null="true" />
+        </property>
+        <property name="picture" type="binary">
+            <column name="PICTURE" />
+        </property>
+        <property name="territoryType" type="string">
+            <column name="TERRITORY_TYPE" length="64" />
+        </property>
+        <property name="city" type="string">
+            <column name="CITY" length="64" />
+        </property>
+        <property name="groupName" type="string">
+            <column name="GROUP_NAME" length="64" />
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="32" />
+        </property>
+        <set name="territoriesassignmentses" table="TERRITORIESASSIGNMENTS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TERRITORY_ID" not-null="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Territoriesassignments" />
+        </set>
+        <set name="territoryhistories" table="TERRITORYHISTORY" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TERRITORY_ID" not-null="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Territoryhistory" />
+        </set>
+        <set name="contacts" table="CONTACT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TERRITORY_ID" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Contact" />
+        </set>
+    </class>
+</hibernate-mapping>

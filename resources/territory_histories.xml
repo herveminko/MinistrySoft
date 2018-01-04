@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TerritoryHistoriesRecords>
+    <territoryName>OS - Centre ville</territoryName>
+    <territoryCode>1</territoryCode>
+    <HistoryRecord>
+        <actionDateString>12/03/2014</actionDateString>
+        <actionName>Travaillé</actionName>
+        <pubisherName>Hervé M.</pubisherName>
+    </HistoryRecord>
+    <HistoryRecord>
+        <actionDateString>12/09/2015</actionDateString>
+        <actionName>Travaillé complètement</actionName>
+        <pubisherName>Hervé M.</pubisherName>
+    </HistoryRecord>
+</TerritoryHistoriesRecords>

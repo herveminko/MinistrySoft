@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jw.ministry.soft.modules.gui.views.congregation.CongregationAddController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField fx:id="congregationNameField" layoutX="162.0" layoutY="98.0" promptText="Nom" />
+            <Label layoutX="95.0" layoutY="102.0" text="Nom" />
+            <Label layoutX="95.0" layoutY="152.0" text="Langue" />
+            <Button layoutX="173.0" layoutY="257.0" mnemonicParsing="false" onAction="#editCongregation" text="Modifier" />
+            <Button layoutX="253.0" layoutY="257.0" mnemonicParsing="false" onAction="#close" text="Annuler" />
+            <Label layoutX="94.0" layoutY="197.0" text="Pays" />
+            <ComboBox fx:id="congregationLanguagesComboBox" layoutX="161.0" layoutY="148.0" prefWidth="150.0" />
+            <ComboBox fx:id="congregationCountriesComboBox" layoutX="161.0" layoutY="193.0" prefWidth="150.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

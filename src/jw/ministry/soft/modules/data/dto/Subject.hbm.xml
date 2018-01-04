@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 6 mars 2015 22:01:43 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Subject" table="SUBJECT" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="subjectId" type="java.lang.Integer">
+            <column name="SUBJECT_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ministryweek" class="jw.ministry.soft.modules.data.dto.Ministryweek" fetch="select">
+            <column name="WEEK" />
+        </many-to-one>
+        <many-to-one name="publisher" class="jw.ministry.soft.modules.data.dto.Publisher" fetch="select">
+            <column name="PUBLISHER_ID" />
+        </many-to-one>
+        <many-to-one name="subjecttype" class="jw.ministry.soft.modules.data.dto.Subjecttype" fetch="select">
+            <column name="SUBJECT_TYPE" />
+        </many-to-one>
+        <property name="subjectTitle" type="string">
+            <column name="SUBJECT_TITLE" length="128" not-null="true" />
+        </property>
+        <property name="subjectSources" type="string">
+            <column name="SUBJECT_SOURCES" length="256" />
+        </property>
+        <property name="remark" type="string">
+            <column name="REMARK" length="64" />
+        </property>
+    </class>
+</hibernate-mapping>

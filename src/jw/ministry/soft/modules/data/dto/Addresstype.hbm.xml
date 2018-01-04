@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Addresstype" table="ADDRESSTYPE" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="addresstypeid" type="java.lang.Integer">
+            <column name="ADDRESSTYPEID" />
+            <generator class="identity" />
+        </id>
+        <property name="addresstype" type="string">
+            <column name="ADDRESSTYPE" length="32" not-null="true" unique="true" />
+        </property>
+        <set name="contacts" table="CONTACT" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ADDRESSTYPEID" unique="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Contact" />
+        </set>
+    </class>
+</hibernate-mapping>

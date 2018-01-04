@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.PublisherPrivilege" table="PUBLISHER_PRIVILEGE" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <composite-id name="id" class="jw.ministry.soft.modules.data.dto.PublisherPrivilegeId">
+            <key-property name="publisherId" type="int">
+                <column name="PUBLISHER_ID" />
+            </key-property>
+            <key-property name="privilegeId" type="int">
+                <column name="PRIVILEGE_ID" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="privilege" class="jw.ministry.soft.modules.data.dto.Privilege" update="false" insert="false" fetch="select">
+            <column name="PRIVILEGE_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="publisher" class="jw.ministry.soft.modules.data.dto.Publisher" update="false" insert="false" fetch="select">
+            <column name="PUBLISHER_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

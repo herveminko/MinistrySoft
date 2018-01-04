@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Congregation" table="CONGREGATION" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="congregationId" type="java.lang.Integer">
+            <column name="CONGREGATION_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="contact" class="jw.ministry.soft.modules.data.dto.Contact" fetch="select">
+            <column name="CONGREGATION_CONTACT" unique="true" />
+        </many-to-one>
+        <property name="congregationName" type="string">
+            <column name="CONGREGATION_NAME" length="64" not-null="true" unique="true" />
+        </property>
+        <property name="congregationLanguage" type="string">
+            <column name="CONGREGATION_LANGUAGE" length="64" not-null="true" />
+        </property>
+        <set name="publishinggroups" table="PUBLISHINGGROUP" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CONGREGATION_ID" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Publishinggroup" />
+        </set>
+        <set name="publishers" table="PUBLISHER" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CONGREGATION" unique="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Publisher" />
+        </set>
+    </class>
+</hibernate-mapping>

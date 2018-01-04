@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 1 juin 2015 18:21:21 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Territoriesassignments" table="TERRITORIESASSIGNMENTS" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="territoryAssignmentId" type="java.lang.Integer">
+            <column name="TERRITORY_ASSIGNMENT_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="publisher" class="jw.ministry.soft.modules.data.dto.Publisher" fetch="select">
+            <column name="PUBLISHER_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="territory" class="jw.ministry.soft.modules.data.dto.Territory" fetch="select">
+            <column name="TERRITORY_ID" not-null="true" />
+        </many-to-one>
+        <property name="assignmentDate" type="date">
+            <column name="ASSIGNMENT_DATE" length="10" not-null="true" />
+        </property>
+        <property name="returnDate" type="date">
+            <column name="RETURN_DATE" length="10" />
+        </property>
+        <property name="lastWorkDate" type="date">
+            <column name="LAST_WORK_DATE" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

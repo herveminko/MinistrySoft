@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:E:\Theocratie\Software\TMS\Database\tms3</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        <!--<property name="hibernate.current_session_context_class">thread</property>-->
+        <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <mapping resource="jw/ministry/soft/modules/data/dto/Ministryweek.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/PublisherPrivilege.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Subject.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Subjecttype.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Privilege.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Publisher.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Sexe.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Territory.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Address.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Status.hbm.xml" />
+        <mapping resource="jw/ministry/soft/modules/data/dto/Congregation.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

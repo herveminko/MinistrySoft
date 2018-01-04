@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Publishinggroup" table="PUBLISHINGGROUP" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="groupId" type="java.lang.Integer">
+            <column name="GROUP_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="congregation" class="jw.ministry.soft.modules.data.dto.Congregation" fetch="select">
+            <column name="CONGREGATION_ID" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" length="32" />
+        </property>
+        <set name="publishers" table="PUBLISHER" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="GROUP_ID" unique="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Publisher" />
+        </set>
+    </class>
+</hibernate-mapping>

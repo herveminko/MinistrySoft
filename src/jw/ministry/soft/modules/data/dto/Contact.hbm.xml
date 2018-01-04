@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 18 mai 2015 18:28:54 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="jw.ministry.soft.modules.data.dto.Contact" table="CONTACT" schema="PUBLIC" catalog="PUBLIC" optimistic-lock="version">
+        <id name="contactId" type="java.lang.Integer">
+            <column name="CONTACT_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="addresstype" class="jw.ministry.soft.modules.data.dto.Addresstype" fetch="select">
+            <column name="ADDRESSTYPEID" unique="true" />
+        </many-to-one>
+        <many-to-one name="territory" class="jw.ministry.soft.modules.data.dto.Territory" fetch="select">
+            <column name="TERRITORY_ID" unique="true" />
+        </many-to-one>
+        <property name="cellPhone" type="string">
+            <column name="CELL_PHONE" length="32" />
+        </property>
+        <property name="phone" type="string">
+            <column name="PHONE" length="32" />
+        </property>
+        <property name="skypeId" type="string">
+            <column name="SKYPE_ID" length="32" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="64" />
+        </property>
+        <property name="street" type="string">
+            <column name="STREET" length="64" />
+        </property>
+        <property name="house" type="string">
+            <column name="HOUSE" length="64" />
+        </property>
+        <property name="appartment" type="string">
+            <column name="APPARTMENT" length="10" />
+        </property>
+        <property name="postalCode" type="string">
+            <column name="POSTAL_CODE" length="10" />
+        </property>
+        <property name="city" type="string">
+            <column name="CITY" length="64" />
+        </property>
+        <property name="country" type="string">
+            <column name="COUNTRY" length="64" />
+        </property>
+        <set name="congregations" table="CONGREGATION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CONGREGATION_CONTACT" unique="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Congregation" />
+        </set>
+        <set name="interesteds" table="INTERESTED" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CONTACT_ID" unique="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Interested" />
+        </set>
+        <set name="publishers" table="PUBLISHER" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CONTACT_ID" unique="true" />
+            </key>
+            <one-to-many class="jw.ministry.soft.modules.data.dto.Publisher" />
+        </set>
+    </class>
+</hibernate-mapping>
