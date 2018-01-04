@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="MinistrySoft" default="do-deploy" basedir="."  xmlns:fx="javafx:com.sun.javafx.tools.ant">
+	<target name="init-fx-tasks">
+		<path id="fxant">
+			<filelist>
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
+				<file name="${basedir}"/>
+			</filelist>
+		</path>
+
+		<taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+			uri="javafx:com.sun.javafx.tools.ant"
+			classpathref="fxant"/>
+	</target>
+	<target name="setup-staging-area">
+		<delete dir="externalLibs" />
+		<delete dir="project" />
+		<delete dir="projectRefs" />
+
+		<mkdir dir="externalLibs" />
+
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="jandex-1.1.0.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="activation-1.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="hsqldb.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="smtp.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="javassist-3.18.1-GA.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="hibernate-core-4.3.6.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="jfxtras-labs-8.0-r4.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="mail.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="joda-time-2.9.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="antlr-2.7.7.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="dom4j-1.6.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="jboss-logging-annotations-1.2.0.Beta1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="controlsfx-8.0.6_20.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="jboss-logging-3.1.3.GA.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="commons-logging-1.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="jxl.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="hibernate-commons-annotations-4.0.5.Final.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="D:\Projects\TMS\MinistrySoft\lib">
+				<filename name="itextpdf-5.5.8.jar"/>
+			</fileset>
+		</copy>
+
+		<mkdir dir="project" />
+		<copy todir="project">
+			<fileset dir="D:\Projects\TMS\MinistrySoft">
+				<include name="resources/**" />
+			</fileset>
+		</copy>
+		<copy todir="project">
+			<fileset dir="D:\Projects\TMS\MinistrySoft">
+				<include name="src/**" />
+			</fileset>
+		</copy>
+		<copy todir="project">
+			<fileset dir="D:\Projects\TMS\MinistrySoft">
+				<include name="hibernate/**" />
+			</fileset>
+		</copy>
+		<!-- begin custom copy -->
+		<copy todir="project">
+			<fileset dir="D:\Projects\TMS\MinistrySoft">
+				<include name="database/**" />
+			</fileset>
+		</copy>
+		<copy todir="project">
+			<fileset dir="D:\Projects\TMS\MinistrySoft">
+				<include name="bundles/**" />
+			</fileset>
+		</copy>
+		<!-- end custom copy -->
+		<mkdir dir="projectRefs" />
+	</target>
+	<target name='do-compile'>
+		<delete dir="build" />
+		<mkdir dir="build/src" />
+		<mkdir dir="build/libs" />
+		<mkdir dir="build/classes" />
+
+		<!-- Copy project-libs references -->
+		<copy todir="build/libs">
+			<fileset dir="externalLibs">
+				<include name="hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+				<include name="smtp.jar"/>
+				<include name="activation-1.1.jar"/>
+				<include name="jboss-logging-3.1.3.GA.jar"/>
+				<include name="jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+				<include name="jandex-1.1.0.Final.jar"/>
+				<include name="hsqldb.jar"/>
+				<include name="javassist-3.18.1-GA.jar"/>
+				<include name="jxl.jar"/>
+				<include name="hibernate-core-4.3.6.Final.jar"/>
+				<include name="commons-logging-1.2.jar"/>
+				<include name="jboss-logging-annotations-1.2.0.Beta1.jar"/>
+				<include name="mail.jar"/>
+				<include name="dom4j-1.6.1.jar"/>
+				<include name="jfxtras-labs-8.0-r4.jar"/>
+				<include name="joda-time-2.9.1.jar"/>
+				<include name="antlr-2.7.7.jar"/>
+				<include name="hibernate-commons-annotations-4.0.5.Final.jar"/>
+				<include name="controlsfx-8.0.6_20.jar"/>
+				<include name="itextpdf-5.5.8.jar"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy project references -->
+
+		<!-- Copy project sources itself -->
+		<copy todir="build/src">
+			<fileset dir="project/src">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="build/src">
+			<fileset dir="project/resources">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="build/src">
+			<fileset dir="project/hibernate">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<!-- begin custom copy -->
+	    <copy todir="build/src">
+			<fileset dir="project/database">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="build/src">
+			<fileset dir="project/bundles">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<!-- end custom copy -->
+
+		<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="Cp1252">
+			<classpath>
+				<fileset dir="build/libs">
+					<include name="*"/>
+				</fileset>
+			</classpath>
+		</javac>
+
+		<!-- Copy over none Java-Files -->
+		<copy todir="build/classes">
+		<fileset dir="project/src">
+			<exclude name="**/*.java"/>
+		</fileset>
+		<fileset dir="project/resources">
+			<exclude name="**/*.java"/>
+		</fileset>
+		<fileset dir="project/hibernate">
+			<exclude name="**/*.java"/>
+		</fileset>
+		<!-- begin custom copy -->
+		<fileset dir="project/database">
+			<exclude name="**/*.java"/>
+		</fileset>
+		<fileset dir="project/bundles">
+			<exclude name="**/*.java"/>
+		</fileset>
+		<!-- end custom copy -->
+		</copy>
+
+
+	</target>
+	<target name="do-deploy" depends="setup-staging-area, do-compile, init-fx-tasks">
+		<delete file="dist"/>
+		<delete file="deploy" />
+
+		<mkdir dir="dist" />
+		<mkdir dir="dist/libs" />
+		<!-- begin custom build -->
+		<mkdir dir="package" />
+		<mkdir dir="package/windows" />
+		<mkdir dir="dist/bundles" />
+		<mkdir dir="dist/database" />
+		<copy todir="dist/bundles">
+			<fileset dir="project/bundles">
+				<include name="*" />
+			</fileset>
+		</copy>
+		<copy todir="package/windows">
+			<fileset dir="project/resources/images">
+				<include name="*.ico" />
+			</fileset>
+			<fileset dir="project/resources/images">
+					<include name="*.bmp" />
+			</fileset>
+		</copy>
+		<copy todir="dist/database">
+			<fileset dir="project/database">
+				<include name="*.script" />
+			</fileset>
+		</copy>
+		<!-- end custom build -->
+
+		<copy todir="dist/libs">
+			<fileset dir="externalLibs">
+				<include name="*" />
+			</fileset>
+		</copy>
+
+
+		<fx:resources id="appRes">
+			<fx:fileset dir="dist" includes="MinistrySoft.jar"/>
+			<fx:fileset dir="dist" includes="libs/*"/>
+			<!-- begin custom resources includes -->
+			<fx:fileset dir="dist" includes="database/**"/>
+			<fx:fileset dir="dist" includes="bundles/**"/>
+			<fx:fileset dir="dist" includes="resources/**"/>
+			<!-- end custom resources includes -->
+		</fx:resources>
+
+		<fx:application id="fxApplication"
+			name="MinistrySoft"
+			mainClass="jw.ministry.soft.application.Main"
+			toolkit="fx"
+			version="1.4"
+		/>
+
+		<mkdir dir="build/classes/META-INF" />
+
+
+
+		<fx:jar destfile="dist/MinistrySoft.jar">
+			<fx:application refid="fxApplication"/>
+			<fileset dir="build/classes">
+			</fileset>
+			<fx:resources refid="appRes"/>
+
+			<manifest>
+				<attribute name="Implementation-Vendor" value="Hervé M. +  N."/>
+				<attribute name="Implementation-Title" value="MinistrySoft"/>
+				<attribute name="Implementation-Version" value="1.4"/>
+				<attribute name="SplashScreen-Image" value="images/MinistrySoft-setup-icon.bmp"/>
+			</manifest>
+		</fx:jar>
+
+
+		<mkdir dir="deploy" />
+		<!-- Need to use ${basedir} because somehow the ant task is calculating the directory differently -->
+		<fx:deploy
+			embedJNLP="false"
+			extension="false"
+			width="800" height="600"
+			includeDT="false"
+			offlineAllowed="true"
+			outdir="${basedir}/deploy"
+			outfile="MinistrySoft" nativeBundles="exe"
+			updatemode="background" >
+
+			<fx:platform basedir="${java.home}"/>
+			<fx:info title="MinistrySoft" vendor="Hervé M. +  N."/>
+			<fx:application refId="fxApplication"/>
+			<fx:resources refid="appRes"/>
+		</fx:deploy>
+
+
+	</target>
+</project>
