@@ -5,35 +5,39 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import jw.ministry.soft.application.Main;
 import jw.ministry.soft.modules.gui.views.congregation.CongregationsListController;
 import jw.ministry.soft.modules.gui.views.publishers.PublishersManagementController;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 
 /**
  * The controller for the root layout. The root layout provides the basic
  * application layout containing a menu bar and space where other JavaFX
  * elements can be placed.
- * 
+ *
  * @author Hervé Minko
  */
 public class RootLayoutController {
-	
+
 
     // Reference to the main application
     private Main mainApp;
 
     AnchorPane layout;
-    
+
     Stage fxStage;
-    
-    
-    
+
+
+
     /**
 	 * @return the fxStage
 	 */
@@ -54,7 +58,7 @@ public class RootLayoutController {
 
 	/**
      * Is called by the main application to give a reference back to itself.
-     * 
+     *
      * @param mainApp
      */
     public void setMainApp(Main mainApp) {
@@ -68,11 +72,10 @@ public class RootLayoutController {
      */
     @FXML
     private void handleAbout() {
-		Dialogs.create()
-	        .title("MinistrySoftApp")
-	        .masthead("À propos")
-	        .message("Auteurs: Hervé Minko; Hervé Ngassop\nWebsite: http://www.ministrysoft.org")
-	        .showInformation();
+
+		GraphicsUtils.openInformationDialog("MinistrySoftApp",
+				"Auteurs: Hervé Minko; Hervé Ngassop\nWebsite: http://www.ministrysoft.org", "À propos");
+
     }
 
     /**
@@ -83,7 +86,7 @@ public class RootLayoutController {
     	HibernateUtil.shutdown();
         System.exit(0);
     }
-    
+
     /**
      * Open the congregation management dialog.
      */
@@ -103,20 +106,20 @@ public class RootLayoutController {
 			dialogStage.initOwner(fxStage);
 			//dialogStage.getIcons().add(new Image("file:resources/images/calendar.png"));
 			dialogStage.setScene(scene);
-			
-			
+
+
 
 			// Give the controller access to the main app.
 			CongregationsListController controller = loader.getController();
 			controller.setMainApp(mainApp);
 
 			dialogStage.show();
-			
+
 //			dialogStage.addEventHandler(eventType, eventHandler);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
+
     }
 
     /**
@@ -137,19 +140,19 @@ public class RootLayoutController {
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(fxStage);
 			dialogStage.setScene(scene);
-			
-			
+
+
 			// Give the controller access to the main app.
 			PublishersManagementController controller = loader.getController();
 			controller.setMainApp(mainApp);
 
 			dialogStage.show();
-			
+
 //			dialogStage.addEventHandler(eventType, eventHandler);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
+
     }
 
 

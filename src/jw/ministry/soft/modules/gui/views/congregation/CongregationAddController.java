@@ -3,8 +3,11 @@ package jw.ministry.soft.modules.gui.views.congregation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import jw.ministry.soft.application.Main;
 import jw.ministry.soft.modules.data.dao.CongregationHome;
@@ -12,9 +15,10 @@ import jw.ministry.soft.modules.data.dao.ContactHome;
 import jw.ministry.soft.modules.data.dto.Congregation;
 import jw.ministry.soft.modules.data.dto.Contact;
 import jw.ministry.soft.modules.gui.views.congregation.model.CongregationModel;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 import org.hibernate.Session;
 
 /**
@@ -25,10 +29,8 @@ import org.hibernate.Session;
  */
 public class CongregationAddController {
 
-	ObservableList<String> languageOptions = FXCollections.observableArrayList(
-			"Francais", "Anglais", "Allemand");
-	ObservableList<String> countryOptions = FXCollections.observableArrayList(
-			"Allemagne", "France", "Cameroun");
+	ObservableList<String> languageOptions = FXCollections.observableArrayList("Francais", "Anglais", "Allemand");
+	ObservableList<String> countryOptions = FXCollections.observableArrayList("Allemagne", "France", "Cameroun");
 
 	@FXML
 	private TextField congregationNameField;
@@ -46,8 +48,7 @@ public class CongregationAddController {
 
 	CongregationModel congregationModel;
 
-
-	 private CongregationsListController parentController;
+	private CongregationsListController parentController;
 
 	public CongregationAddController() {
 
@@ -63,11 +64,11 @@ public class CongregationAddController {
 		this.congregationLanguagesComboBox.setItems(languageOptions);
 		this.congregationLanguagesComboBox.setValue(languageOptions.get(0));
 
-	    if (this.congregationModel != null) {
-	    	congregationNameField.setText(congregationModel.getCongregation().getCongregationName());
-	    	congregationCountriesComboBox.setValue(congregationModel.getCongregation().getContact().getCountry());
-	    	congregationLanguagesComboBox.setValue(congregationModel.getCongregation().getCongregationLanguage());
-	    }
+		if (this.congregationModel != null) {
+			congregationNameField.setText(congregationModel.getCongregation().getCongregationName());
+			congregationCountriesComboBox.setValue(congregationModel.getCongregation().getContact().getCountry());
+			congregationLanguagesComboBox.setValue(congregationModel.getCongregation().getCongregationLanguage());
+		}
 	}
 
 	/**
@@ -84,9 +85,10 @@ public class CongregationAddController {
 	 */
 	@FXML
 	public void editCongregation() {
-//		Dialogs.create().owner(getFxStage()).title("Edit Congregation Dialog")
-//				.masthead(null).message("I have a great message for you!")
-//				.showInformation();
+		// Dialogs.create().owner(getFxStage()).title("Edit Congregation
+		// Dialog")
+		// .masthead(null).message("I have a great message for you!")
+		// .showInformation();
 		CongregationHome dao = new CongregationHome();
 		ContactHome dao2 = new ContactHome();
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -104,9 +106,9 @@ public class CongregationAddController {
 
 		session.close();
 
-		Dialogs.create().owner(getFxStage()).title("Modification de congrégation")
-				.masthead(null).message("Congregation correctement modifiée!")
-				.showInformation();
+
+		GraphicsUtils.openInformationDialog("Modification de congrégation", "Congregation correctement modifiée!",
+				null);
 
 		close();
 
@@ -122,9 +124,10 @@ public class CongregationAddController {
 		CongregationHome dao = new CongregationHome();
 		ContactHome dao2 = new ContactHome();
 		Session session = HibernateUtil.getSessionFactory().openSession();
-//		Congregation congre = new Congregation(congregationNameField.getText(),
-//				congregationLanguagesComboBox.getValue(),
-//				congregationCountriesComboBox.getValue());
+		// Congregation congre = new
+		// Congregation(congregationNameField.getText(),
+		// congregationLanguagesComboBox.getValue(),
+		// congregationCountriesComboBox.getValue());
 		Congregation congre = new Congregation(congregationNameField.getText(),
 				congregationLanguagesComboBox.getValue());
 		Contact contact = new Contact();
@@ -137,9 +140,8 @@ public class CongregationAddController {
 
 		session.close();
 
-		Dialogs.create().owner(getFxStage()).title("Insertion de congrégation")
-				.masthead(null).message("Congregation correctement insérée!")
-				.showInformation();
+		GraphicsUtils.openInformationDialog("Insertion de congrégation", "Congrégation correctement insérée!!",
+				null);
 
 		close();
 
@@ -175,7 +177,8 @@ public class CongregationAddController {
 	}
 
 	/**
-	 * @param parentController the parentController to set
+	 * @param parentController
+	 *            the parentController to set
 	 */
 	public void setParentController(CongregationsListController parentController) {
 		this.parentController = parentController;
@@ -189,13 +192,11 @@ public class CongregationAddController {
 	}
 
 	/**
-	 * @param congregationModel the congregationModel to set
+	 * @param congregationModel
+	 *            the congregationModel to set
 	 */
 	public void setCongregationModel(CongregationModel congregationModel) {
 		this.congregationModel = congregationModel;
 	}
-
-
-
 
 }

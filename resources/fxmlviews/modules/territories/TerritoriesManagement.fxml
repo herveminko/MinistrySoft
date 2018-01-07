@@ -138,7 +138,9 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="656.0">
                                              <children>
-                                                <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectTerritoryHistories" text="Importer Historiques" />
+                                                <!--<Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectTerritoryHistories" text="Importer Historiques" />-->
+                                                <Button layoutX="18.0" layoutY="14.0" mnemonicParsing="false" onAction="#extractSingleTerritoryContactsData" prefHeight="25.0" prefWidth="200.0" text="Exporter adresses du territoire" />
+                                                <Button layoutX="225.0" layoutY="14.0" mnemonicParsing="false" onAction="#extractAllTerritoryContactsData" prefHeight="25.0" prefWidth="175.0" text="Exporter toutes adresses" />
                                                 <TableView fx:id="territoryHistoryTable" layoutX="18.0" layoutY="53.0" prefHeight="410.0" prefWidth="521.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="117.0" AnchorPane.topAnchor="53.0">
                                                   <columns>
                                                     <TableColumn fx:id="territoryHistoryDate" prefWidth="102.0" resizable="false" text="Date" />

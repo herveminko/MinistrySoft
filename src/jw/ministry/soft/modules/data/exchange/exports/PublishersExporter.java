@@ -55,7 +55,7 @@ public class PublishersExporter {
 			// WritableWorkbook workbook = Workbook.createWorkbook(new
 			// File("output.xls"));
 			WritableSheet sheet = workbook.createSheet("Publishers Sheet", 0);
-			exportAllPublishers(sheet, congregationIndex);
+			exportAllPublishersPretty(sheet, congregationIndex);
 
 			workbook.write();
 			workbook.close();

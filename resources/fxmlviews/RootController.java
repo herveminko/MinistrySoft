@@ -17,9 +17,10 @@ import jw.ministry.soft.modules.data.exchange.imports.TerritoryBoundsMapImporter
 import jw.ministry.soft.modules.gui.views.congregation.CongregationsListController;
 import jw.ministry.soft.modules.gui.views.publishers.PublishersManagementController;
 import jw.ministry.soft.modules.gui.views.territories.TerritoriesController;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 
 /**
  * The controller for the root layout. The root layout provides the basic
@@ -101,7 +102,6 @@ public class RootController {
 	}
 
 	/**
-	 * @return the fxStage
 	 */
 	public Stage getFxStage() {
 		return fxStage;
@@ -141,13 +141,7 @@ public class RootController {
 			e.printStackTrace();
 		}
 
-
-		Dialogs.create()
-				.title("MinistrySoftApp " + appVersion)
-				.masthead("À propos ...")
-				.message(
-						"Programme utilitaire pour la gestion de territoires.\n\nAuteurs: Hervé Minko; Hervé Ngassop :-)\nContact: hcminko@hotmail.com")
-				.showInformation();
+		GraphicsUtils.openInformationDialog("MinistrySoftApp " + appVersion, "Programme utilitaire pour la gestion de territoires.\n\nAuteurs: Hervé Minko; Hervé Ngassop :-)\nContact: hcminko@hotmail.com", "À propos...");
 	}
 
 	/**

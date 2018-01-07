@@ -6,11 +6,11 @@ package jw.ministry.soft.modules.gui.views.publishers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialog;
+//import org.controlsfx.dialog.Dialogs;
 import org.hibernate.Session;
 
 import fxmlviews.RootController;
@@ -20,6 +20,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -37,6 +40,7 @@ import jw.ministry.soft.modules.data.dto.Publisher;
 import jw.ministry.soft.modules.data.dto.Territoriesassignments;
 import jw.ministry.soft.modules.data.dto.Territory;
 import jw.ministry.soft.modules.gui.views.publishers.model.PublisherModel;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
 /**
@@ -244,10 +248,9 @@ public class PublishersManagementController {
 			}
 
 			if (!listString.isEmpty()) {
-				//
-				Dialogs.create().owner(getFxStage()).title("Territoires assignés au prolameteur")
-						// .masthead("")
-						.message(listString).showInformation();
+
+				GraphicsUtils.openInformationDialog("Territoires Proclamateur", "Territoires assignés au prolameteur\n" + listString,
+						null);
 			}
 		}
 	}
@@ -357,10 +360,12 @@ public class PublishersManagementController {
 	 */
 	@FXML
 	private void deletePublisher() {
-		Action response = Dialogs.create().owner(getFxStage()).title("Effacer Prolameteur").masthead("")
-				.message("Voulez-vous vraiment effacer le proclamateur de la base de données?").showConfirm();
 
-		if (response == Dialog.Actions.YES) {
+		Alert alert = GraphicsUtils.openConfirmationDialog("Effacer Prolameteur", "Voulez-vous vraiment effacer le proclamateur de la base de données?", null);
+
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == ButtonType.YES) {
 			// Effacer le proclamateur
 			PublisherHome dao = new PublisherHome();
 			dao.delete(currentPublisher);

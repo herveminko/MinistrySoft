@@ -1,5 +1,6 @@
 package jw.ministry.soft.modules.gui.views.territories;
 
+import java.awt.Dialog;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +29,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509TrustManager;
 import javax.xml.bind.JAXBException;
 
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 import org.hibernate.Session;
 
 import com.itextpdf.text.BaseColor;
@@ -69,7 +70,10 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -113,6 +117,7 @@ import jw.ministry.soft.modules.data.dto.Publisher;
 import jw.ministry.soft.modules.data.dto.Territoriesassignments;
 import jw.ministry.soft.modules.data.dto.Territory;
 import jw.ministry.soft.modules.data.dto.Territoryhistory;
+import jw.ministry.soft.modules.data.exchange.imports.InterestedListParser;
 import jw.ministry.soft.modules.data.exchange.imports.TerritoryHistoryImporter;
 import jw.ministry.soft.modules.data.reports.DetailledGroupTerritoryReportData;
 import jw.ministry.soft.modules.data.reports.TerritoryReportData;
@@ -127,6 +132,7 @@ import jw.ministry.soft.modules.utils.HibernateUtil;
 import jw.ministry.soft.modules.utils.MailUtils;
 import jw.ministry.soft.modules.utils.territories.HeaderFooterPageEvent;
 import jw.ministry.soft.modules.utils.territories.HeaderFooterPageEvent2;
+import jxl.write.WriteException;
 
 public class TerritoriesController {
 
@@ -356,8 +362,10 @@ public class TerritoriesController {
 
 		territoryHistoryDao.persist(session, newHistory);
 
-		Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification  d'historique")
-				.masthead(null).message("L'historique du territoire a été modifiée avec succès.").showInformation();
+		GraphicsUtils.openInformationDialog("Modification  d'historique",
+				"L'historique du territoire a été modifiée avec succès.",
+				null);
+
 	}
 
 	private void updateTerritoryMap(String territoryWebUrl) {
@@ -907,6 +915,9 @@ public class TerritoriesController {
 					String mailReceiver = receiversArray[i];
 					MailUtils.sendMail(mailSender, mailReceiver, mailSubject, mailContent);
 				}
+
+				GraphicsUtils.openInformationDialog("Email adresses",
+						"Emails envoyé avec succès!",null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -997,6 +1008,9 @@ public class TerritoriesController {
 					String mailReceiver = receiversArray[i];
 					MailUtils.sendMail(mailSender, mailReceiver, mailSubject, mailContent);
 				}
+				GraphicsUtils.openInformationDialog("Email couverture",
+						"Emails envoyé avec succès!",
+							null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1078,12 +1092,10 @@ public class TerritoriesController {
 				}
 			}
 
-			Dialogs.create().owner(getRootParentController().getFxStage())
-					.title("Importation d'historiques de Territoires").masthead(null)
-					.message(
-							"Importation d'historiques de Territoire(s) réussies!\nLes fichiers suivant fûrent importés:\n\n"
-									+ fileNames)
-					.showInformation();
+			GraphicsUtils.openInformationDialog("Importation d'historiques de Territoires",
+					"Importation d'historiques de Territoire(s) réussies!\nLes fichiers suivant fûrent importés:\n\n"
+							+ fileNames,
+					null);
 		}
 
 	}
@@ -1126,20 +1138,21 @@ public class TerritoriesController {
 					assign.setAssignmentDate(setDate);
 					territoryAssignmentDao.persist(session, assign);
 
-					Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification de Territoire")
-							.masthead(null)
-							.message(
-									"Date d'assignation au proclamateur " + getPublisherExternalname(pub) + " modifiée")
-							.showInformation();
+					GraphicsUtils.openInformationDialog("Modification de Territoire",
+							"Date d'assignation au proclamateur " + getPublisherExternalname(pub) + " modifiée",
+							null);
+
 					execution = true;
 				}
 			}
 		}
 
 		if (!execution) {
-			Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification de Territoire")
-					.masthead(null).message("Impossible de modifier la date d'assignation de ce territroire !")
-					.showError();
+
+			GraphicsUtils.openErrorDialog("Modification de Territoire",
+					"Impossible de modifier la date d'assignation de ce territroire !",
+					null);
+
 		}
 		session.close();
 
@@ -1173,17 +1186,21 @@ public class TerritoriesController {
 					assign.setReturnDate(returnDate);
 					territoryAssignmentDao.persist(session, assign);
 
-					Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification de Territoire")
-							.masthead(null).message("Date de retour du territoirer " + ter.getName() + " modifiée")
-							.showInformation();
+					GraphicsUtils.openInformationDialog("Modification de Territoire",
+						 "Date de retour du territoire " + ter.getName() + " modifiée",
+							null);
+
 					execution = true;
 				}
 			}
 		}
 
 		if (!execution) {
-			Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification de Territoire")
-					.masthead(null).message("Impossible de modifier la date de retour de ce territroire !").showError();
+
+
+			GraphicsUtils.openErrorDialog("Modification de Territoire",
+					"Impossible de modifier la date de retour de ce territroire !",
+						null);
 		}
 		session.close();
 
@@ -1229,9 +1246,9 @@ public class TerritoriesController {
 
 		session.close();
 
-		Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification de Territoire")
-				.masthead(null).message("Assignation au proclamateur " + getPublisherExternalname(pub))
-				.showInformation();
+		GraphicsUtils.openInformationDialog("Modification de Territoire",
+				"Assignation au proclamateur " + getPublisherExternalname(pub),
+					null);
 
 		enableTerritoriesTable();
 
@@ -1241,8 +1258,6 @@ public class TerritoriesController {
 	public void abortTerritoryEdition() {
 		enableTerritoriesTable();
 	}
-
-
 
 	public void disableTerritoriesTable() {
 		territoriesTablePane.setDisable(true);
@@ -1277,8 +1292,9 @@ public class TerritoriesController {
 
 		session.close();
 
-		Dialogs.create().owner(getRootParentController().getFxStage()).title("Insertion de Territoire").masthead(null)
-				.message("Territoire correctement inséré!").showInformation();
+		GraphicsUtils.openInformationDialog("Insertion de Territoire",
+				"Territoire correctement inséré!",
+					null);
 
 		getAllTerritoriesFromDatabase();
 	}
@@ -1302,10 +1318,49 @@ public class TerritoriesController {
 
 		session.close();
 
-		Dialogs.create().owner(getRootParentController().getFxStage()).title("Modification de Territoire")
-				.masthead(null).message("Territoire correctement modifié!").showInformation();
+		GraphicsUtils.openInformationDialog("Modification de Territoire",
+				"Territoire correctement modifié!",
+					null);
+	}
 
-		// getAllTerritoriesFromDatabase();
+	@FXML
+	public void extractSingleTerritoryContactsData() throws WriteException, IOException {
+
+		TerritoryModel ter = territoriesTable.getSelectionModel().getSelectedItem();
+
+		if (ter != null) {
+			String selectedTerritoryCode = ter.getTerritoryCode().getValueSafe();
+
+			String fileName = "interested-" + selectedTerritoryCode + ".xlsx";
+			int territoryFilter = Integer.valueOf(selectedTerritoryCode);
+
+			InterestedListParser.extractSpecificTerritoriesInterested(fileName, territoryFilter, null);
+
+			GraphicsUtils.openInformationDialog("Exportation des adresses",
+					"Adresses du Territoire  " + selectedTerritoryCode + " - "
+							+ ter.getTerritoryName().getValueSafe() + " exportée!",
+						null);
+
+		} else {
+
+			GraphicsUtils.openWarningDialog("Exportation des adresses",
+					"Aucun territoire n'est selectionné!!",
+						null);
+		}
+
+	}
+
+	@FXML
+	public void extractAllTerritoryContactsData() throws WriteException, IOException {
+
+		String fileName = null;
+		InterestedListParser.extractSpecificTerritoriesInterested(fileName, null,
+				Arrays.asList("Paderborn", "Bielefeld"));
+
+		GraphicsUtils.openInformationDialog("Exportation des adresses",
+				"Adresses de tous les territoires " + " exportées!",
+					null);
+
 	}
 
 	public void updatePublishersList() {
@@ -1406,8 +1461,9 @@ public class TerritoriesController {
 		territoryDao.persist(session, listToInsert);
 		session.close();
 
-		Dialogs.create().owner(getRootParentController().getFxStage()).title("Insertion de Territoires").masthead(null)
-				.message("Liste de territoires correctement insérée!").showInformation();
+		GraphicsUtils.openInformationDialog("Insertion de Territoires",
+				"Liste de territoires correctement insérée!",
+					null);
 
 		getAllTerritoriesFromDatabase();
 
@@ -1603,7 +1659,8 @@ public class TerritoriesController {
 		// Check the territory against the archived property
 		boolean archivedVisibilityResult = true;
 		if (archivedChecked) {
-			if (territoryModelInstance.getTerritoryStatusProperty().toString().contains(BLACK_LISTED_TERRITORY_STATUS_STRING)) {
+			if (territoryModelInstance.getTerritoryStatusProperty().toString()
+					.contains(BLACK_LISTED_TERRITORY_STATUS_STRING)) {
 				archivedVisibilityResult = false;
 			} else {
 				archivedVisibilityResult = true;
@@ -1837,7 +1894,6 @@ public class TerritoriesController {
 
 		totalReportsPieChart.setData(pieChartDataItems);
 
-
 		// Detailled reports
 		detailledReportsBarChart.getData().clear();
 
@@ -1888,7 +1944,7 @@ public class TerritoriesController {
 		Document document = new Document();
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("sampleReport.pdf"));
 		HeaderFooterPageEvent2 event = new HeaderFooterPageEvent2();
-        writer.setPageEvent(event);
+		writer.setPageEvent(event);
 
 		document.open();
 		document.setPageSize(PageSize.A4);
@@ -2155,7 +2211,7 @@ public class TerritoriesController {
 		Document document = new Document();
 		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("bilanTerritoires.pdf"));
 		HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-        writer.setPageEvent(event);
+		writer.setPageEvent(event);
 		document.open();
 		document.setPageSize(PageSize.A4);
 
@@ -2197,7 +2253,8 @@ public class TerritoriesController {
 		cell.setBorder(Rectangle.NO_BORDER);
 		pageHeader.addCell(cell);
 
-		//cell = new PdfPCell(new Phrase("Gebietszuteilungskarte", pageHeaderFont));
+		// cell = new PdfPCell(new Phrase("Gebietszuteilungskarte",
+		// pageHeaderFont));
 		cell = new PdfPCell(new Phrase("Relevé des attributions de territoire", pageHeaderFont));
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setBorder(Rectangle.NO_BORDER);
@@ -2239,7 +2296,6 @@ public class TerritoriesController {
 				float outerLength = 100 / 6;
 				outerTable.setWidthPercentage(outerLength);
 				int histCount = histories.size();
-
 
 				if (histories.isEmpty()) {
 
@@ -2322,8 +2378,8 @@ public class TerritoriesController {
 							innerTable.addCell(cell3);
 
 							// Territory coverage date
-							cell3 = new PdfPCell(new Phrase(hist.getHistoryActionDateProperty().getValueSafe(),
-									historyFont));
+							cell3 = new PdfPCell(
+									new Phrase(hist.getHistoryActionDateProperty().getValueSafe(), historyFont));
 							cell3.setColspan(2);
 							cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
 							innerTable.addCell(cell3);

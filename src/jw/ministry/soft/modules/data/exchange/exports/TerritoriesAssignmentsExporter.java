@@ -61,7 +61,7 @@ public class TerritoriesAssignmentsExporter {
 			// WritableWorkbook workbook = Workbook.createWorkbook(new
 			// File("output.xls"));
 			WritableSheet sheet = workbook.createSheet("Territories Assignments Sheet", 0);
-			exportAllTerritoriesAssignments(sheet);
+			exportAllTerritoriesAssignmentsPretty(sheet);
 
 			workbook.write();
 			workbook.close();

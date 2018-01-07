@@ -7,11 +7,14 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import jw.ministry.soft.application.Main;
@@ -30,9 +33,10 @@ import jw.ministry.soft.modules.data.dto.PublisherPrivilegeId;
 import jw.ministry.soft.modules.data.dto.Sexe;
 import jw.ministry.soft.modules.data.dto.Status;
 import jw.ministry.soft.modules.utils.DateUtils;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 import org.hibernate.Session;
 
 public class AddPublisherController {
@@ -69,7 +73,7 @@ public class AddPublisherController {
     ListView<String> privilegesListView;
 	@FXML
 	DatePicker datePicker;
-	
+
 
 	// Reference to the main application
 	private Main mainApp;
@@ -87,7 +91,7 @@ public class AddPublisherController {
 				"Masculin", "Féminin");
 		ObservableList<String> statusOptions = FXCollections.observableArrayList(
 				"Actif", "Inactif", "Archivé", "Excommunié" );
-		
+
 		ObservableList<String> privilegesOptions = FXCollections
 				.observableArrayList("Coordinateur", "Ancien",
 						"Assistant ministériel",
@@ -96,8 +100,8 @@ public class AddPublisherController {
 						"Surveillant à la tour de garde", "Sécrétaire",
 						"Surveillant à l'école", "Surveillant au service");
 
-		
-		
+
+
 		sexComboBox.setItems(sexOptions);
 		countryComboBox.setItems(countryOptions);
 		statusComboBox.setItems(statusOptions);
@@ -154,11 +158,11 @@ public class AddPublisherController {
 		publisherContact.setEmail(emailTextField.getText());
 		publisherContact.setPhone(phoneTextField.getText());
 		publisherContact.setSkypeId(skypeTextField.getText());
-		
+
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		// Handling sex 
+
+		// Handling sex
 		Sexe sex = new Sexe();
 		sex.setSexe(sexComboBox.getValue());
 		List<Sexe> sexList = dao3.findByExample(session, sex);
@@ -168,11 +172,11 @@ public class AddPublisherController {
 		} else {
 			pub.setSexe(sexList.get(0));
 		}
-		
+
 		// Handling status
 		Status status = new Status();
 		status.setStatus(statusComboBox.getValue());
-		
+
 		List<Status> statusList = statusDao.findByExample(session, status);
 		if(statusList.isEmpty()) {
 			statusDao.persist(session, status);
@@ -180,15 +184,15 @@ public class AddPublisherController {
 		} else {
 			pub.setStatus(statusList.get(0));
 		}
-				
-		
-		
+
+
+
 		dao2.persist(session, publisherContact);
 
 		pub.setContact(publisherContact);
 		pub.setCongregation(currentCongregation);
 		dao.persist(session, pub);
-		
+
 		// Handling privileges
 		ObservableList<String> privilegesList = privilegesListView.getSelectionModel().getSelectedItems();
 		for (String priv : privilegesList) {
@@ -199,24 +203,26 @@ public class AddPublisherController {
 			} else {
 				privilege = privList.get(0);
 			}
-			
+
 			PublisherPrivilege pubPrivilege = new PublisherPrivilege();
 			pubPrivilege.setPrivilege(privilege);
 			pubPrivilege.setPublisher(pub);
 			PublisherPrivilegeId id = new PublisherPrivilegeId(pub.getPublisherId(),privilege.getPrivilegeId());
 			pubPrivilege.setId(id);
-			
-			pubPrivilegesDao.persist(session, pubPrivilege);			
+
+			pubPrivilegesDao.persist(session, pubPrivilege);
 			pub.getPublisherPrivileges().add(pubPrivilege);
-		}		
+		}
 
 		dao.persist(session, pub);
 
 		session.close();
 
-		Dialogs.create().owner(getFxStage()).title("Insertion de Proclamateur")
-				.masthead(null).message("Proclamateur correctement inséré!")
-				.showInformation();
+
+
+		GraphicsUtils.openInformationDialog("Insertion de Proclamateur", "Proclamateur correctement inséré!",
+				null);
+
 		getParentController().getAllPublisherInCongregation();
 
 		close();

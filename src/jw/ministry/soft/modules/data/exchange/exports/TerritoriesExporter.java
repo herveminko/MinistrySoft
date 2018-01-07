@@ -48,7 +48,7 @@ public class TerritoriesExporter {
 		    workbook = Workbook.createWorkbook(new File(fileName), ws);
 //		    WritableWorkbook workbook = Workbook.createWorkbook(new File("output.xls"));
 			WritableSheet sheet = workbook.createSheet("Territories Sheet", 0);
-			exportAllTerritories(sheet);
+			exportAllTerritoriesPretty(sheet);
 
 		    workbook.write();
 		    workbook.close();

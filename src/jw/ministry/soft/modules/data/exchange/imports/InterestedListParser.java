@@ -7,6 +7,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -131,139 +139,33 @@ public class InterestedListParser {
 
 	}
 
-	public static void extractAllTerritoriesInterested(XSSFSheet sheet) throws WriteException, IOException {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		CongregationHome daoCongregation = new CongregationHome();
-
-		// overWriteHeaders(sheet);
-
-		XSSFSheet sourceSheet = sourceWorkbook.getSheet("Interessés");
-		int rowsCount = sourceSheet.getLastRowNum();
-
-		System.out.println("source sheet contains " + rowsCount + " rows!!!");
-
-		Iterator<Row> iterator = sourceSheet.iterator();
-
-		int i = 0;
-
-		XSSFCellStyle orangeStyle = targetWorkbook.createCellStyle();
-		orangeStyle.setFillForegroundColor(IndexedColors.LIGHT_ORANGE.getIndex());
-		orangeStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-		Font font = targetWorkbook.createFont();
-		font.setColor(IndexedColors.BROWN.getIndex());
-		font.setFontHeightInPoints(Short.valueOf("14"));
-		orangeStyle.setFont(font);
-
-		XSSFCellStyle defaultStyle = targetWorkbook.createCellStyle();
-
-		Font defaultFont = targetWorkbook.createFont();
-		defaultFont.setFontHeightInPoints(Short.valueOf("14"));
-		defaultStyle.setFont(defaultFont);
-
-		// Iterate over the source workbook rows
-		while (iterator.hasNext()) {
-			// The first row should be ignored
-			// if (i > 1) {
-
-			System.out.println("processing row number " + i);
-
-			Row currentRow = iterator.next();
-			Iterator<Cell> cellIterator = currentRow.iterator();
-
-			// Row newRow = sheet.createRow(i-1);
-			Row newRow = sheet.createRow(i);
-
-			while (cellIterator.hasNext()) {
-
-				Cell currentCell = cellIterator.next();
-				int columnIndex = currentCell.getColumnIndex();
-				String columnValue = "";
-
-				if (currentCell.getCellTypeEnum() == CellType.STRING) {
-					columnValue = currentCell.getStringCellValue();
-				} else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-					columnValue = String.format("%1$,.0f", currentCell.getNumericCellValue()).replace(".", "");
-				}
-
-				switch (columnIndex) {
-				case 0:
-					Cell codeCell = newRow.createCell(0);
-					codeCell.setCellStyle(orangeStyle);
-					codeCell.setCellValue(columnValue);
-					break;
-				case 2:
-					Cell streetCell = newRow.createCell(1);
-					streetCell.setCellValue(columnValue);
-					streetCell.setCellStyle(defaultStyle);
-					break;
-				case 3:
-					Cell houseCell = newRow.createCell(2);
-					houseCell.setCellValue(columnValue);
-					houseCell.setCellStyle(defaultStyle);
-					break;
-				case 4:
-					Cell postalCodeCell = newRow.createCell(3);
-					postalCodeCell.setCellValue(columnValue);
-					postalCodeCell.setCellStyle(defaultStyle);
-					break;
-				case 5:
-					Cell lastNameCell = newRow.createCell(4);
-					lastNameCell.setCellValue(columnValue);
-					lastNameCell.setCellStyle(defaultStyle);
-					break;
-				case 6:
-					Cell firstNameCell = newRow.createCell(5);
-					firstNameCell.setCellValue(columnValue);
-					firstNameCell.setCellStyle(defaultStyle);
-					break;
-				case 7:
-					Cell frenchFlagCell = newRow.createCell(6);
-					frenchFlagCell.setCellValue(columnValue);
-					frenchFlagCell.setCellStyle(defaultStyle);
-					break;
-				case 9:
-					Cell appartmentCell = newRow.createCell(7);
-					appartmentCell.setCellValue(columnValue);
-					appartmentCell.setCellStyle(defaultStyle);
-					break;
-				case 11:
-					Cell noteCell = newRow.createCell(8);
-					noteCell.setCellValue(columnValue);
-					noteCell.setCellStyle(defaultStyle);
-					break;
-				default:
-					break;
-				}
-
-			}
-
-			i++;
-
-			// } else {
-			// System.out.println("ignoring first row with all headers");
-			// i++;
-			// }
-		}
-
-		// update headers
-		overWriteHeaders(targetWorkbook, sheet);
-
-		// auto size columns
-		autoSizeColumns(targetWorkbook);
-
-	}
-
 	public static void extractSpecificTerritoriesInterested(String outputFilename, Integer territoryCode,
 			List<String> groups) throws WriteException, IOException {
 		// overWriteHeaders(sheet);
+
+		// downloadInterestedFile();
 
 		FileInputStream excelFile = new FileInputStream(new File(sourceFileName));
 		sourceWorkbook = new XSSFWorkbook(excelFile);
 
 		targetWorkbook = new XSSFWorkbook();
 		String fileName = outputFilename != null ? outputFilename : targetFileName;
-		FileOutputStream targetOutputStream = new FileOutputStream(fileName);
+
+		String filePath = "fichiers_territoires" + File.separator + fileName;
+
+		// Create output directory if needed...
+		Path path = Paths.get("fichiers_territoires");
+		// if directory exists?
+		if (!Files.exists(path)) {
+			try {
+				Files.createDirectories(path);
+			} catch (IOException e) {
+				// fail to create directory
+				e.printStackTrace();
+			}
+		}
+
+		FileOutputStream targetOutputStream = new FileOutputStream(filePath);
 
 		XSSFSheet sheet = targetWorkbook.createSheet("TerritoriesInterested");
 
@@ -461,4 +363,20 @@ public class InterestedListParser {
 		}
 	}
 
+	public static void downloadInterestedFile() {
+
+		try {
+			// File f = new File("interested.xlsx");
+			// String filePath = f.getAbsolutePath();
+			// Path target = Paths.get(URI.create("file:///" + filePath));
+			Path target = Paths.get(System.getProperty("user.home"), "workspace", "MinistrySoft", "interested.xlsx");
+			URL website = new URL("https://1drv.ms/x/s!ArIRj0umSSi4jFdh-Bs_yQ9_lx_d");
+			try (InputStream in = website.openStream()) {
+				Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+				System.out.println("Interested File successfully downloaded!!!!");
+			}
+		} catch (IOException e) {
+			System.out.println("Interested File could not be downloaded!!!!");
+		}
+	}
 }

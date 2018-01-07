@@ -9,11 +9,14 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import jw.ministry.soft.application.Main;
@@ -34,9 +37,10 @@ import jw.ministry.soft.modules.data.dto.Publishinggroup;
 import jw.ministry.soft.modules.data.dto.Sexe;
 import jw.ministry.soft.modules.data.dto.Status;
 import jw.ministry.soft.modules.utils.DateUtils;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 import org.hibernate.Session;
 
 public class EditPublisherController {
@@ -292,10 +296,9 @@ public class EditPublisherController {
 
 		session.close();
 
-		Dialogs.create().owner(getFxStage())
-				.title("Modification de Proclamateur").masthead(null)
-				.message("Proclamateur correctement modifié!")
-				.showInformation();
+		GraphicsUtils.openInformationDialog("Modification de Proclamateur", "Proclamateur correctement modifié!",
+				null);
+
 		getParentController().getAllPublisherInCongregation();
 
 		close();

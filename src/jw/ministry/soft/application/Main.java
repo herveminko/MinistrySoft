@@ -3,11 +3,18 @@ package jw.ministry.soft.application;
 //import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+//import org.controlsfx.control.ButtonBar;
+//import org.controlsfx.control.ButtonBar.ButtonType;
+//import org.controlsfx.control.action.AbstractAction;
+//import org.controlsfx.control.action.Action;
+//import org.controlsfx.dialog.Dialog;
+//import org.controlsfx.dialog.Dialogs;
+
+import fxmlviews.RootController;
 //import ch.makery.address.MainApp;
 //import ch.makery.address.view.RootLayoutController;
 import javafx.application.Application;
@@ -28,15 +35,6 @@ import javafx.stage.WindowEvent;
 import jw.ministry.soft.modules.gui.views.congregation.model.CongregationModel;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
-import org.controlsfx.control.ButtonBar;
-import org.controlsfx.control.ButtonBar.ButtonType;
-import org.controlsfx.control.action.AbstractAction;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
-
-import fxmlviews.RootController;
-
 
 
 /**
@@ -54,41 +52,41 @@ public class Main extends Application {
 
 	private CongregationModel currentCongregation;
 
-	final TextField username = new TextField();
-	final PasswordField password = new PasswordField();
-	final Action actionLogin = new AbstractAction("Login") {
-	    // This method is called when the login button is clicked ...
-	    public void handle(ActionEvent ae) {
-	        Dialog d = (Dialog) ae.getSource();
-	        // Do the login here.
-	        if (username.getText().equals("admin") && password.getText().equals("admin")) {
-		        d.hide();
-	        } else {
-	        	String appVersion = "";
-	        	ResourceBundle bundle;
-				try {
-					bundle = Main.getMainBundle();
-		        	appVersion = bundle.getString("app_version");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-	    		Dialogs.create()
-		        .title("MinistrySoftApp " + appVersion)
-		        .masthead("Erreur d'authentification")
-		        .message("L'authentification n'a as fonctionné. Veuillez rééssayer.")
-		        .showWarning();
-	        }
-	    }
-	};
-
-	final Action actionCancel = new AbstractAction("Annuler") {
-	    // This method is called when the cancel button is clicked ...
-	    public void handle(ActionEvent ae) {
-	    	System.exit(0);
-	    }
-	};
+//	final TextField username = new TextField();
+//	final PasswordField password = new PasswordField();
+//	final Action actionLogin = new AbstractAction("Login") {
+//	    // This method is called when the login button is clicked ...
+//	    public void handle(ActionEvent ae) {
+//	        Dialog d = (Dialog) ae.getSource();
+//	        // Do the login here.
+//	        if (username.getText().equals("admin") && password.getText().equals("admin")) {
+//		        d.hide();
+//	        } else {
+//	        	String appVersion = "";
+//	        	ResourceBundle bundle;
+//				try {
+//					bundle = Main.getMainBundle();
+//		        	appVersion = bundle.getString("app_version");
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//
+//	    		Dialogs.create()
+//		        .title("MinistrySoftApp " + appVersion)
+//		        .masthead("Erreur d'authentification")
+//		        .message("L'authentification n'a as fonctionné. Veuillez rééssayer.")
+//		        .showWarning();
+//	        }
+//	    }
+//	};
+//
+//	final Action actionCancel = new AbstractAction("Annuler") {
+//	    // This method is called when the cancel button is clicked ...
+//	    public void handle(ActionEvent ae) {
+//	    	System.exit(0);
+//	    }
+//	};
 
 
 	/* (non-Javadoc)
@@ -135,43 +133,43 @@ public class Main extends Application {
 	 * Open the login dialog.
 	 * @param stage
 	 */
-	public void openLoginDialog(Stage stage) {
-		   // Create the custom dialog.
-	    Dialog dlg = new Dialog(stage, "Login Dialog", false);
-
-	    GridPane grid = new GridPane();
-	    grid.setHgap(10);
-	    grid.setVgap(10);
-	    grid.setPadding(new Insets(0, 10, 0, 10));
-
-	    username.setPromptText("Username");
-	    password.setPromptText("Password");
-
-	    grid.add(new Label("Username:"), 0, 0);
-	    grid.add(username, 1, 0);
-	    grid.add(new Label("Password:"), 0, 1);
-	    grid.add(password, 1, 1);
-
-	    ButtonBar.setType(actionLogin, ButtonType.OK_DONE);
-	    ButtonBar.setType(actionCancel, ButtonType.CANCEL_CLOSE);
-	    actionLogin.disabledProperty().set(true);
-
-	    // Do some validation (using the Java 8 lambda syntax).
-	    username.textProperty().addListener((observable, oldValue, newValue) -> {
-	        actionLogin.disabledProperty().set(newValue.trim().isEmpty());
-	    });
-
-	    dlg.setMasthead("Look, a Custom Login Dialog");
-	    dlg.setContent(grid);
-	    dlg.getActions().addAll(actionLogin,actionCancel);
-
-
-	    // Request focus on the username field by default.
-	    Platform.runLater(() -> username.requestFocus());
-
-	    dlg.setClosable(false);
-	    dlg.show();
-	}
+//	public void openLoginDialog(Stage stage) {
+//		   // Create the custom dialog.
+//	    Dialog dlg = new Dialog(stage, "Login Dialog", false);
+//
+//	    GridPane grid = new GridPane();
+//	    grid.setHgap(10);
+//	    grid.setVgap(10);
+//	    grid.setPadding(new Insets(0, 10, 0, 10));
+//
+//	    username.setPromptText("Username");
+//	    password.setPromptText("Password");
+//
+//	    grid.add(new Label("Username:"), 0, 0);
+//	    grid.add(username, 1, 0);
+//	    grid.add(new Label("Password:"), 0, 1);
+//	    grid.add(password, 1, 1);
+//
+//	    ButtonBar.setType(actionLogin, ButtonType.OK_DONE);
+//	    ButtonBar.setType(actionCancel, ButtonType.CANCEL_CLOSE);
+//	    actionLogin.disabledProperty().set(true);
+//
+//	    // Do some validation (using the Java 8 lambda syntax).
+//	    username.textProperty().addListener((observable, oldValue, newValue) -> {
+//	        actionLogin.disabledProperty().set(newValue.trim().isEmpty());
+//	    });
+//
+//	    dlg.setMasthead("Look, a Custom Login Dialog");
+//	    dlg.setContent(grid);
+//	    dlg.getActions().addAll(actionLogin,actionCancel);
+//
+//
+//	    // Request focus on the username field by default.
+//	    Platform.runLater(() -> username.requestFocus());
+//
+//	    dlg.setClosable(false);
+//	    dlg.show();
+//	}
 
 
 	/**

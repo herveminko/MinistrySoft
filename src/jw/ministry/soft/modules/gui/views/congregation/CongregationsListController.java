@@ -3,15 +3,19 @@ package jw.ministry.soft.modules.gui.views.congregation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,11 +23,12 @@ import jw.ministry.soft.application.Main;
 import jw.ministry.soft.modules.data.dao.CongregationHome;
 import jw.ministry.soft.modules.data.dto.Congregation;
 import jw.ministry.soft.modules.gui.views.congregation.model.CongregationModel;
+import jw.ministry.soft.modules.utils.GraphicsUtils;
 import jw.ministry.soft.modules.utils.HibernateUtil;
 
 import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialog;
+//import org.controlsfx.dialog.Dialogs;
 import org.hibernate.Session;
 
 import fxmlviews.RootController;
@@ -42,16 +47,15 @@ public class CongregationsListController {
 	private TableColumn<CongregationModel, String> congregationNameColumn;
 	@FXML
 	private TableColumn<CongregationModel, String> congregationCountryColumn;
-//	@FXML
-//	private TableHeaderRow
+	// @FXML
+	// private TableHeaderRow
 
-
-    @FXML
-    private Label congregationNameLabel;
-    @FXML
-    private Label congregationCountryLabel;
-    @FXML
-    private Label congregationLanguageLabel;
+	@FXML
+	private Label congregationNameLabel;
+	@FXML
+	private Label congregationCountryLabel;
+	@FXML
+	private Label congregationLanguageLabel;
 
 	// Reference to the main application
 	private Main mainApp;
@@ -65,10 +69,10 @@ public class CongregationsListController {
 	/**
 	 * The data as an observable list of congregations.
 	 */
-	private ObservableList<CongregationModel> congregationsData = FXCollections
-			.observableArrayList();
+	private ObservableList<CongregationModel> congregationsData = FXCollections.observableArrayList();
 
 	RootController rootParentController;
+
 	/**
 	 * Is called by the main application to give a reference back to itself.
 	 *
@@ -107,22 +111,21 @@ public class CongregationsListController {
 	public void initialize() {
 		getAllCongregationsFromDatabase();
 
-    	// Initialize the person table with the two columns.
-		congregationNameColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().getCongregationName());
-        congregationCountryColumn.setCellValueFactory(
-        		cellData -> cellData.getValue().getCountry());
+		// Initialize the person table with the two columns.
+		congregationNameColumn.setCellValueFactory(cellData -> cellData.getValue().getCongregationName());
+		congregationCountryColumn.setCellValueFactory(cellData -> cellData.getValue().getCountry());
 
-        // Listen for selection changes and show the person details when changed.
-		congregationTable.getSelectionModel().selectedItemProperty().addListener(
-				(observable, oldValue, newValue) -> showCongregationDetails(newValue));
+		// Listen for selection changes and show the person details when
+		// changed.
+		congregationTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showCongregationDetails(newValue));
 	}
 
 	/**
 	 * Retrieve all congregations from the database and build the UI model.
 	 */
 	@FXML
-	public  void getAllCongregationsFromDatabase() {
+	public void getAllCongregationsFromDatabase() {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -140,10 +143,8 @@ public class CongregationsListController {
 		// Add observable list data to the table
 		congregationTable.setItems(congregationsData);
 		if (getRootParentController() != null) {
-		getRootParentController().updtateCongregationsList();
+			getRootParentController().updtateCongregationsList();
 		}
-
-
 
 	}
 
@@ -152,23 +153,21 @@ public class CongregationsListController {
 	 */
 	@FXML
 	private void deleteCongregation() {
-		Action response = Dialogs.create()
-		        .owner(getFxStage())
-		        .title("Effacer Congregation")
-		        .masthead("")
-		        .message("Voulez-vous vraiment effacer la congrégation de la base de données?")
-		        .showConfirm();
 
-		if (response == Dialog.Actions.YES) {
+		Alert alert =  GraphicsUtils.openConfirmationDialog("Modification de congrégation", "Congregation correctement modifiée!",
+				null);
+
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == ButtonType.YES) {
 			// Effacer la congrégation
 			Congregation congregation = currentModel.getCongregation();
 			CongregationHome dao = new CongregationHome();
 			dao.delete(congregation);
 			getAllCongregationsFromDatabase();
 		} else {
-		    // ... user chose NO, CANCEL, or closed the dialog
+			// ... user chose NO, CANCEL, or closed the dialog
 		}
-
 
 	}
 
@@ -181,8 +180,7 @@ public class CongregationsListController {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(CongregationAddController.class
-					.getResource("AddCongregation.fxml"));
+			loader.setLocation(CongregationAddController.class.getResource("AddCongregation.fxml"));
 			layout = (AnchorPane) loader.load();
 
 			// Show the scene containing the root layout.
@@ -218,8 +216,7 @@ public class CongregationsListController {
 		try {
 			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(CongregationAddController.class
-					.getResource("EditCongregation.fxml"));
+			loader.setLocation(CongregationAddController.class.getResource("EditCongregation.fxml"));
 			layout = (AnchorPane) loader.load();
 
 			// Show the scene containing the root layout.
@@ -239,8 +236,6 @@ public class CongregationsListController {
 			controller.setCongregationModel(currentModel);
 			controller.initialize();
 			controller.setParentController(this);
-
-
 
 			dialogStage.show();
 		} catch (IOException e) {
@@ -272,12 +267,11 @@ public class CongregationsListController {
 	}
 
 	/**
-	 * @param rootParentController the rootParentController to set
+	 * @param rootParentController
+	 *            the rootParentController to set
 	 */
 	public void setRootParentController(RootController rootParentController) {
 		this.rootParentController = rootParentController;
 	}
-
-
 
 }

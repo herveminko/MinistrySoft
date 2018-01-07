@@ -299,7 +299,7 @@ public class MailUtils {
 				territoriesInfo += ter.getCode() + " - " + ter.getName() + "\n";
 			}
 		}
-		if (publisher.getContact().getEmail() != null
+		if (publisher.getContact() != null && publisher.getContact().getEmail() != null
 				&& !publisher.getContact().getEmail().isEmpty()) {
 
 			ResourceBundle bundle = Main.getMainBundle();
@@ -431,7 +431,14 @@ public class MailUtils {
 
 			System.out.println("Done - Email sending.");
 
+//			GraphicsUtils.openInformationDialog("MinistrySoftApp",
+//					"Email envoyé à " + mailReceiver + "!",
+//						null);
+
 		} catch (MessagingException e) {
+			GraphicsUtils.openErrorDialog("MinistrySoftApp",
+					"Echec d'envoi d'Email à " + mailReceiver + "!" + "\n" + e.getMessage(),
+						null);
 			throw new RuntimeException(e);
 		}
 	}
