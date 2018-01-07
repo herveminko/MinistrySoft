@@ -346,7 +346,7 @@
 			<manifest>
 				<attribute name="Implementation-Vendor" value="Hervé M. +  N."/>
 				<attribute name="Implementation-Title" value="MinistrySoft"/>
-				<attribute name="Implementation-Version" value="1.4"/>
+				<attribute name="Implementation-Version" value="1.5"/>
 				<attribute name="SplashScreen-Image" value="images/MinistrySoft-setup-icon.bmp"/>
 			</manifest>
 		</fx:jar>
