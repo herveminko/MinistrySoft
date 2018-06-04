@@ -363,8 +363,7 @@ public class TerritoriesController {
 		territoryHistoryDao.persist(session, newHistory);
 
 		GraphicsUtils.openInformationDialog("Modification  d'historique",
-				"L'historique du territoire a été modifiée avec succès.",
-				null);
+				"L'historique du territoire a été modifiée avec succès.", null);
 
 	}
 
@@ -697,7 +696,7 @@ public class TerritoriesController {
 					TerritoryModel mod = row.getItem();
 					Publisher pub = mod.getTerritoryOwner();
 					try {
-						boolean isMailSent = MailUtils.sendTerritoryWorkStatusMailToPublisher(pub);
+						boolean isMailSent = MailUtils.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(pub);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -916,8 +915,7 @@ public class TerritoriesController {
 					MailUtils.sendMail(mailSender, mailReceiver, mailSubject, mailContent);
 				}
 
-				GraphicsUtils.openInformationDialog("Email adresses",
-						"Emails envoyé avec succès!",null);
+				GraphicsUtils.openInformationDialog("Email adresses", "Emails envoyé avec succès!", null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1008,9 +1006,7 @@ public class TerritoriesController {
 					String mailReceiver = receiversArray[i];
 					MailUtils.sendMail(mailSender, mailReceiver, mailSubject, mailContent);
 				}
-				GraphicsUtils.openInformationDialog("Email couverture",
-						"Emails envoyé avec succès!",
-							null);
+				GraphicsUtils.openInformationDialog("Email couverture", "Emails envoyé avec succès!", null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -1022,7 +1018,6 @@ public class TerritoriesController {
 			String mailContent = "Les proclamateurs suivants ont été contactés pour obtenir les dates de travail de leurs territoires:\n\n";
 
 			for (Integer pubId : listOfContactedPublisher.keySet()) {
-
 				Publisher pub = listOfContactedPublisher.get(pubId);
 				mailContent += pub.getFirstName() + " " + pub.getLastName() + "\n";
 			}
@@ -1042,6 +1037,23 @@ public class TerritoriesController {
 		}
 
 		session.close();
+	}
+
+	/**
+	 * Create a pdf file with a given mail content.
+	 *
+	 * @param filename
+	 * @param body
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
+	public static void createPdf(String filename, String body) throws DocumentException, IOException {
+
+		Document document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream("mails/" + filename + ".pdf"));
+		document.open();
+		document.add(new Paragraph(body));
+		document.close();
 	}
 
 	/**
@@ -1139,8 +1151,7 @@ public class TerritoriesController {
 					territoryAssignmentDao.persist(session, assign);
 
 					GraphicsUtils.openInformationDialog("Modification de Territoire",
-							"Date d'assignation au proclamateur " + getPublisherExternalname(pub) + " modifiée",
-							null);
+							"Date d'assignation au proclamateur " + getPublisherExternalname(pub) + " modifiée", null);
 
 					execution = true;
 				}
@@ -1150,8 +1161,7 @@ public class TerritoriesController {
 		if (!execution) {
 
 			GraphicsUtils.openErrorDialog("Modification de Territoire",
-					"Impossible de modifier la date d'assignation de ce territroire !",
-					null);
+					"Impossible de modifier la date d'assignation de ce territroire !", null);
 
 		}
 		session.close();
@@ -1187,8 +1197,7 @@ public class TerritoriesController {
 					territoryAssignmentDao.persist(session, assign);
 
 					GraphicsUtils.openInformationDialog("Modification de Territoire",
-						 "Date de retour du territoire " + ter.getName() + " modifiée",
-							null);
+							"Date de retour du territoire " + ter.getName() + " modifiée", null);
 
 					execution = true;
 				}
@@ -1197,10 +1206,8 @@ public class TerritoriesController {
 
 		if (!execution) {
 
-
 			GraphicsUtils.openErrorDialog("Modification de Territoire",
-					"Impossible de modifier la date de retour de ce territroire !",
-						null);
+					"Impossible de modifier la date de retour de ce territroire !", null);
 		}
 		session.close();
 
@@ -1247,8 +1254,7 @@ public class TerritoriesController {
 		session.close();
 
 		GraphicsUtils.openInformationDialog("Modification de Territoire",
-				"Assignation au proclamateur " + getPublisherExternalname(pub),
-					null);
+				"Assignation au proclamateur " + getPublisherExternalname(pub), null);
 
 		enableTerritoriesTable();
 
@@ -1292,9 +1298,7 @@ public class TerritoriesController {
 
 		session.close();
 
-		GraphicsUtils.openInformationDialog("Insertion de Territoire",
-				"Territoire correctement inséré!",
-					null);
+		GraphicsUtils.openInformationDialog("Insertion de Territoire", "Territoire correctement inséré!", null);
 
 		getAllTerritoriesFromDatabase();
 	}
@@ -1318,9 +1322,7 @@ public class TerritoriesController {
 
 		session.close();
 
-		GraphicsUtils.openInformationDialog("Modification de Territoire",
-				"Territoire correctement modifié!",
-					null);
+		GraphicsUtils.openInformationDialog("Modification de Territoire", "Territoire correctement modifié!", null);
 	}
 
 	@FXML
@@ -1336,16 +1338,12 @@ public class TerritoriesController {
 
 			InterestedListParser.extractSpecificTerritoriesInterested(fileName, territoryFilter, null);
 
-			GraphicsUtils.openInformationDialog("Exportation des adresses",
-					"Adresses du Territoire  " + selectedTerritoryCode + " - "
-							+ ter.getTerritoryName().getValueSafe() + " exportée!",
-						null);
+			GraphicsUtils.openInformationDialog("Exportation des adresses", "Adresses du Territoire  "
+					+ selectedTerritoryCode + " - " + ter.getTerritoryName().getValueSafe() + " exportée!", null);
 
 		} else {
 
-			GraphicsUtils.openWarningDialog("Exportation des adresses",
-					"Aucun territoire n'est selectionné!!",
-						null);
+			GraphicsUtils.openWarningDialog("Exportation des adresses", "Aucun territoire n'est selectionné!!", null);
 		}
 
 	}
@@ -1358,8 +1356,7 @@ public class TerritoriesController {
 				Arrays.asList("Paderborn", "Bielefeld"));
 
 		GraphicsUtils.openInformationDialog("Exportation des adresses",
-				"Adresses de tous les territoires " + " exportées!",
-					null);
+				"Adresses de tous les territoires " + " exportées!", null);
 
 	}
 
@@ -1461,9 +1458,8 @@ public class TerritoriesController {
 		territoryDao.persist(session, listToInsert);
 		session.close();
 
-		GraphicsUtils.openInformationDialog("Insertion de Territoires",
-				"Liste de territoires correctement insérée!",
-					null);
+		GraphicsUtils.openInformationDialog("Insertion de Territoires", "Liste de territoires correctement insérée!",
+				null);
 
 		getAllTerritoriesFromDatabase();
 
