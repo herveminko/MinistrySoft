@@ -545,8 +545,12 @@ public class InterestedListParser {
 							try {
 								columnValue = currentCell.getStringCellValue();
 							} catch (Exception e) {
+								try {
 								columnValue = String.format("%1$,.0f", currentCell.getNumericCellValue()).replace(".",
 										"");
+								} catch (IllegalStateException ie) {
+									columnValue = "";
+								}
 							}
 						switch (columnIndex) {
 						case 0:
@@ -608,8 +612,8 @@ public class InterestedListParser {
 					// réfugiés"))
 					// territoryType = "Ref";
 					address = streetName + " " + houseNumber + ", " + postalCode + " " + city;
-					contactName = firstName != null && !firstName.isEmpty() ? firstName + " " + lastName : lastName;
-					if (contactName.trim().isEmpty()) {
+					contactName = (firstName != null && !firstName.isEmpty()) ? firstName + " " + lastName : lastName;
+					if (contactName == null || contactName.trim().isEmpty()) {
 						contactName = DEFAULT_CONTACT_NAME;
 					}
 					String addressToLocate = streetName + " " + houseNumber.split("-")[0].trim() + ", " + postalCode

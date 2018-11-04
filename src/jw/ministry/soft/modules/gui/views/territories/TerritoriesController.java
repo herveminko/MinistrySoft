@@ -947,8 +947,10 @@ public class TerritoriesController {
 						boolean isMailSent = false;
 						if (listOfContactedPublisher.get(responsibePublisher.getPublisherId()) == null) {
 							try {
+//								isMailSent = MailUtils
+//										.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(responsibePublisher);
 								isMailSent = MailUtils
-										.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(responsibePublisher);
+										.sendTerritoryWorkStatusMailToDatabasePublisher(responsibePublisher);
 							} catch (IOException e) {
 								e.printStackTrace();
 								isMailSent = false;
