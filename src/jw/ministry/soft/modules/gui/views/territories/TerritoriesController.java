@@ -947,10 +947,17 @@ public class TerritoriesController {
 						boolean isMailSent = false;
 						if (listOfContactedPublisher.get(responsibePublisher.getPublisherId()) == null) {
 							try {
-//								isMailSent = MailUtils
-//										.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(responsibePublisher);
-								isMailSent = MailUtils
-										.sendTerritoryWorkStatusMailToDatabasePublisher(responsibePublisher);
+								ResourceBundle bundle;
+								bundle = Main.getMainBundle();
+								Boolean mailReminder = Boolean.valueOf(bundle.getString("send_mail_reminder"));
+								if (!mailReminder) {
+									isMailSent = MailUtils
+											.sendTerritoryWorkStatusMailToDatabasePublisher(responsibePublisher);
+								} else {
+									isMailSent = MailUtils
+											.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(responsibePublisher);
+								}
+								
 							} catch (IOException e) {
 								e.printStackTrace();
 								isMailSent = false;
@@ -1116,8 +1123,7 @@ public class TerritoriesController {
 
 	/**
 	 *
-	 * @param file
-	 *            File to show in ImageView Viewer of a file
+	 * @param file File to show in ImageView Viewer of a file
 	 * @author hervengassop
 	 */
 	public void territoryViewer(File file) {
@@ -1729,8 +1735,8 @@ public class TerritoriesController {
 	}
 
 	/**
-	 * This method retrieves all publishers a selected congregation whom we want
-	 * to send an email
+	 * This method retrieves all publishers a selected congregation whom we want to
+	 * send an email
 	 *
 	 * @author hervengassop
 	 */
@@ -2563,8 +2569,7 @@ public class TerritoriesController {
 	}
 
 	/**
-	 * @param rootParentController
-	 *            the rootParentController to set
+	 * @param rootParentController the rootParentController to set
 	 */
 	public void setRootParentController(RootController rootParentController) {
 		this.rootParentController = rootParentController;
@@ -2578,8 +2583,7 @@ public class TerritoriesController {
 	}
 
 	/**
-	 * @param filteredTerritoryModelList
-	 *            the filteredTerritoryModelList to set
+	 * @param filteredTerritoryModelList the filteredTerritoryModelList to set
 	 */
 	public void setFilteredTerritoryModelList(FilteredList<TerritoryModel> filteredTerritoryModelList) {
 		this.filteredTerritoryModelList = filteredTerritoryModelList;
