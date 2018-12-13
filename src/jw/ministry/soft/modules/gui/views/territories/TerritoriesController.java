@@ -927,7 +927,7 @@ public class TerritoriesController {
 	}
 
 	@FXML
-	private void sendMailForTerroriesCoverage() {
+	private void sendMailForTerroriesReturnRequest() {
 		List<Publisher> listOfPublisherWithoutMailAddresses = new ArrayList<Publisher>();
 		Map<Integer, Publisher> listOfContactedPublisher = new HashMap<Integer, Publisher>();
 
@@ -949,15 +949,71 @@ public class TerritoriesController {
 							try {
 								ResourceBundle bundle;
 								bundle = Main.getMainBundle();
-								Boolean mailReminder = Boolean.valueOf(bundle.getString("send_mail_reminder"));
-								if (!mailReminder) {
+								isMailSent = MailUtils
+										.sendTerroriesReturnRequestMailToDatabasePublisher(responsibePublisher);
+
+							} catch (IOException e) {
+								e.printStackTrace();
+								isMailSent = false;
+							}
+
+						} else {
+							isMailSent = true;
+						}
+
+						if (!isMailSent) {
+							listOfPublisherWithoutMailAddresses.add(responsibePublisher);
+						} else {
+
+							listOfContactedPublisher.put(responsibePublisher.getPublisherId(), responsibePublisher);
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	@FXML
+	private void sendRemainderMailForTerroriesCoverage() {
+		sendCoverageMail(true);
+	}
+
+	@FXML
+	private void sendMailForTerroriesCoverage() {
+		sendCoverageMail(false);
+	}
+
+	private void sendCoverageMail(boolean mailRemainder) {
+		List<Publisher> listOfPublisherWithoutMailAddresses = new ArrayList<Publisher>();
+		Map<Integer, Publisher> listOfContactedPublisher = new HashMap<Integer, Publisher>();
+
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		TerritoryHome territoriesDao = new TerritoryHome();
+		List<Territory> territories = territoriesDao.getAllTerritories(session);
+		for (Territory t : territories) {
+			String status = "";
+			if (t.getStatus() != null) {
+				status = t.getStatus();
+			}
+			if (!t.getTerritoriesassignmentses().isEmpty() && !status.contains(BLACK_LISTED_TERRITORY_STATUS_STRING)) {
+				for (Territoriesassignments assignMent : t.getTerritoriesassignmentses()) {
+					Publisher responsibePublisher = assignMent.getPublisher();
+					if (assignMent.getReturnDate() == null) {
+						boolean isMailSent = false;
+						if (listOfContactedPublisher.get(responsibePublisher.getPublisherId()) == null) {
+							try {
+								ResourceBundle bundle;
+								bundle = Main.getMainBundle();
+								if (!mailRemainder) {
 									isMailSent = MailUtils
 											.sendTerritoryWorkStatusMailToDatabasePublisher(responsibePublisher);
 								} else {
-									isMailSent = MailUtils
-											.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(responsibePublisher);
+									isMailSent = MailUtils.sendTerritoryWorkStatusRemainderMailToDatabasePublisher(
+											responsibePublisher);
 								}
-								
+
 							} catch (IOException e) {
 								e.printStackTrace();
 								isMailSent = false;
@@ -1046,6 +1102,7 @@ public class TerritoriesController {
 		}
 
 		session.close();
+
 	}
 
 	/**

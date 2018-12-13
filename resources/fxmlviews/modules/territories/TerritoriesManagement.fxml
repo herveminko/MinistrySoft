@@ -398,6 +398,8 @@
                                                    <children>
                                                       <Button layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#sendMailForTerroriesAddresses" text="Envoyer Email collectif pour adresses" />
                                                       <Button layoutX="24.0" layoutY="51.0" mnemonicParsing="false" onAction="#sendMailForTerroriesCoverage" prefHeight="25.0" prefWidth="208.0" text="Envoyer Email collectif pour travail" />
+                                                      <Button layoutX="240.0" layoutY="51.0" mnemonicParsing="false" onAction="#sendRemainderMailForTerroriesCoverage" prefHeight="25.0" prefWidth="208.0" text="Envoyer Rappel collectif pour travail" />                                                      
+                                                      <Button layoutX="24.0" layoutY="88.0" mnemonicParsing="false" onAction="#sendMailForTerroriesReturnRequest" prefHeight="25.0"  text="Envoyer Email - retour des territoires" />
                                                    </children>
                                                 </Pane>
                                              </children>

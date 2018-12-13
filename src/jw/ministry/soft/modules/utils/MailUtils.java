@@ -211,6 +211,60 @@ public class MailUtils {
 		}
 		return true;
 	}
+	
+	public static boolean sendTerroriesReturnRequestMailToDatabasePublisher(Publisher p) throws IOException {
+		String territoriesInfo = "";
+		for (Territoriesassignments ass : p.getTerritoriesassignmentses())
+			if (ass.getReturnDate() == null) {
+				Territory ter = ass.getTerritory();
+				TerritoryModel model = new TerritoryModel(ter);
+				List<TerritoryHistoryModel> histories = model.getHistoryData();
+				Collections.sort(histories);
+				territoriesInfo += ter.getCode() + " - " + ter.getName()  + "\n";
+			}
+		if (p.getContact().getEmail() == null || p.getContact().getEmail().isEmpty())
+			return false;
+		ResourceBundle bundle = Main.getMainBundle();
+		final String mailSender = bundle.getString("mail_sender");
+		String mailReceiver = p.getContact().getEmail();
+		String mailSubject = "Rappel Urgent - Retour de tous les territoires de Bielefeld francophone!!";
+		String title = (p.getSexe().getSexe().equalsIgnoreCase("masculin") ? "Cher " : "Chère ") + p.getFirstName()
+				+ ",\n";
+		String mailContent = title + "\n\n"
+				+ "Ceci est un rappel collectif. Si tu as déja rendu TOUS tes territoires aux responsables, tu peux ignorer cet Email! Dans le cas contraire, veuille s'il te plait nous les remettre URGEMMENT dès la prochaine réunion."
+				+ "\n\n"
+				+ "D'après notre liste tu travailles actuellement le(s) territoire(s) suivant(s):\n\n" + territoriesInfo
+				+ "\n\n"
+				+ "Si tu possèdes encore des adresses de ces territoires non transmises aux responsables, veuille absolument les noter sur tes cartes de terriroires correspondantes avant de la remettre.\n\n"
+				+ "\n\n"
+				+ "Des détails suivront en temps voulu, pour ceux qui se poseraient des questions...\n\n";
+		String[] mailResponsesAddresses = bundle.getString("mail_response_adresses").split(";");
+		String[] mailResponsesNames = bundle.getString("mail_response_names").split(";");
+		String mailReturnInfo = "";
+		String returnNames = "";
+		returnNames += mailResponsesNames.length > 1 ? "Tes frères\n" : "Ton frère\n";
+		for (int i = 0; i < mailResponsesAddresses.length; ++i) {
+			mailReturnInfo += mailResponsesNames[i] + ": " + mailResponsesAddresses[i] + "\n";
+			if (i == 0)
+				returnNames += mailResponsesNames[i];
+			else
+				returnNames += i == (mailResponsesAddresses.length - 1) ? " & " + mailResponsesNames[i]
+						: ", " + mailResponsesNames[i];
+		}
+//		String mailRemark = "\n\nVeuille répondre à l'une des adresses Email suivantes:\n" + mailReturnInfo
+//				+ "ou tout simplement nous contacter dès que possible par un autre moyen.\n";
+		String signature = "\n\nMerci d'avance pour ta coopération et tes efforts.\n\n" + returnNames;
+//		mailContent += mailRemark;
+		mailContent += signature;
+		System.out.println("Sending mail to " + mailReceiver + " ...");
+		sendMail(mailSender, mailReceiver, mailSubject, mailContent);
+		try {
+			TerritoriesController.createPdf("return_mail_" + p.getFirstName() + "_" + p.getLastName() , mailContent);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	/**
 	 * Send a mail to a database publisher instance, requesting the list of
